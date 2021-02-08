@@ -13,3 +13,11 @@ export const monthList = [
   '11월',
   '12월',
 ];
+
+// 1부터 31까지
+export const dayList = Array.from(Array(31), (_, i) => String(`${i + 1}일`));
+
+// 올해부터 100년전까지
+export const yearList = Array.from(Array(121), (_, i) =>
+  String(`${new Date().getFullYear() - i}년`)
+);

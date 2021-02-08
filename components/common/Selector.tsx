@@ -15,7 +15,8 @@ const Container = styled.div`
     border-radius: 4px;
     outline: none;
     -webkit-appearance: none;
-    background-image: url('../../public/static/svg/common/selector/selector_down_arrow.svg');
+    /* next에서는 public폴더에 있는 정적 파일을 접근할 수 있다. */
+    background-image: url('/static/svg/common/selector/selector_down_arrow.svg');
     background-position: right 11px center;
     background-repeat: no-repeat;
     font-size: 16px;
@@ -28,13 +29,23 @@ const Container = styled.div`
 
 interface IProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   options?: string[];
+  disabledOptions?: string[];
   value?: string;
 }
 
-export default function Selector({ options = [], ...props }: IProps) {
+export default function Selector({
+  options = [],
+  disabledOptions = [],
+  ...props
+}: IProps) {
   return (
     <Container>
       <select {...props}>
+        {disabledOptions.map((option, index) => (
+          <option key={index} value={option} disabled>
+            {option}
+          </option>
+        ))}
         {options.map((option, index) => (
           <option key={index} value={option}>
             {option}
