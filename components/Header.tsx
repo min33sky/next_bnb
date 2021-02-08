@@ -60,7 +60,7 @@ const LoginButton = styled.button`
 `;
 
 /**
- * 앱의 공통 헤더
+ * Airbnb 공통 헤더
  */
 export default function Header() {
   const { openModal, ModalPortal } = useModal();
