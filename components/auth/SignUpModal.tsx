@@ -10,8 +10,9 @@ import Selector from '../common/Selector';
 import { dayList, monthList, yearList } from '../../lib/staticData';
 import palette from '../../styles/palette';
 import Button from '../common/Button';
+import { signupAPI } from '../../lib/api/auth';
 
-const Container = styled.div`
+const Container = styled.form`
   width: 568px;
   padding: 32px;
   background-color: white;
@@ -118,8 +119,29 @@ export default function SignUpModal() {
     setHidePassword(!hidePassword);
   };
 
+  const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const signUpBody = {
+        email,
+        lastname,
+        firstname,
+        password,
+        birthday: new Date(
+          `${birthYear!.replace('년', '')}-${birthMonth!.replace(
+            '월',
+            ''
+          )}-${birthDay!.replace('일', '')}`
+        ).toISOString(),
+      };
+      await signupAPI(signUpBody);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
-    <Container>
+    <Container onSubmit={onSubmitSignUp}>
       <CloseXIcon
         className="modal-close-x-icon"
         onClick={() => {
