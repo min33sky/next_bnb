@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import PersonIcon from '../../public/static/svg/logo/person.svg';
-import OpenedEyeIcon from '../../public/static/svg/logo/opened-eye.svg';
-import ClosedEyeIcon from '../../public/static/svg/logo/closeed-eye.svg';
-import MailIcon from '../../public/static/svg/logo/mail.svg';
-import CloseXIcon from '../../public/static/svg/logo/modal_close_x_icon.svg';
+import PersonIcon from '../../public/static/svg/auth/person.svg';
+import OpenedEyeIcon from '../../public/static/svg/auth/opened_eye.svg';
+import ClosedEyeIcon from '../../public/static/svg/auth/closed_eye.svg';
+import MailIcon from '../../public/static/svg/auth/mail.svg';
+import CloseXIcon from '../../public/static/svg/modal/modal_colose_x_icon.svg';
 import Input from '../common/Input';
 import Selector from '../common/Selector';
 import { dayList, monthList, yearList } from '../../lib/staticData';
@@ -13,8 +13,11 @@ import palette from '../../styles/palette';
 import Button from '../common/Button';
 import { signupAPI } from '../../lib/api/auth';
 import { userActions } from '../../store/user';
-import { commonActions } from '../../store/common';
 import useValidateMode from '../../hooks/useValidateMode';
+import PasswordWarning from './PasswordWarning';
+
+//* 비밀번호 최소 자릿수
+const PASSWORD_MIN_LENGTH = 8;
 
 const Container = styled.form`
   width: 568px;
@@ -97,7 +100,10 @@ export default function SignUpModal() {
   const [birthDay, setBirthDay] = useState<string | undefined>();
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
 
+  const [passwordFocused, setPasswordFocused] = useState(false);
+
   const dispatch = useDispatch();
+
   const { setValidateMode } = useValidateMode();
 
   const onChangeBirthMonth = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -126,7 +132,7 @@ export default function SignUpModal() {
     setHidePassword(!hidePassword);
   };
 
-  // 회원가입 폼 제출하기
+  //* 회원가입 폼 제출하기
   const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -158,6 +164,35 @@ export default function SignUpModal() {
       console.log(e);
     }
   };
+
+  //* 비밀번호 인풋 포커스 되었을 때
+  const onFocusPassword = () => {
+    setPasswordFocused(true);
+  };
+
+  //* password가 이름이나 이메일을 포함하는지
+  const isPasswordHasNameOrEmail = useMemo(
+    () =>
+      !password ||
+      !lastname ||
+      password.includes(lastname) ||
+      password.includes(email.split('@')[0]),
+    [password, lastname, email]
+  );
+
+  //* 비밀번호가 최소 자릿수 이상인지
+  const isPasswordOverMinLength = useMemo(
+    () => !!password && password.length >= PASSWORD_MIN_LENGTH,
+    [password]
+  );
+
+  //* 비밀번호가 숫자나 특수기호를 포함하는지
+  const isPasswordHasNumberOrSymbol = useMemo(
+    () =>
+      /[{}[\]/?.,;:|)*~1!^\-_+<>@#$%^&\\=('"]/g.test(password) ||
+      /[0-9]/g.test(password),
+    [password]
+  );
 
   return (
     <Container onSubmit={onSubmitSignUp}>
@@ -218,10 +253,31 @@ export default function SignUpModal() {
           value={password}
           onChange={onChangePassword}
           useValidation
-          isValid={!!password}
+          isValid={
+            !isPasswordHasNameOrEmail &&
+            isPasswordOverMinLength &&
+            isPasswordHasNumberOrSymbol
+          }
           errorMessage="비밀번호를 입력하세요."
+          onFocus={onFocusPassword}
         />
       </InputWrapper>
+      {passwordFocused && (
+        <>
+          <PasswordWarning
+            isValid={!isPasswordHasNameOrEmail}
+            text="비밀번호에 본인 이름이나 이메일 주소를 포함할 수 없습니다."
+          />
+          <PasswordWarning
+            isValid={isPasswordOverMinLength}
+            text="최소 8자리를 입력하세요."
+          />
+          <PasswordWarning
+            isValid={isPasswordHasNumberOrSymbol}
+            text="숫자나 기호를 포함하세요"
+          />
+        </>
+      )}
 
       <p className="sign-up-birthday-label">생일</p>
       <p className="sign-up-modal-birthday-info">
