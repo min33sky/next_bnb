@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE, MakeStore } from 'next-redux-wrapper';
 import { combineReducers } from 'redux';
+import common from './common';
 import user from './user';
 
 const rootReducer = combineReducers({
   user: user.reducer,
+  common: common.reducer,
 });
 
 //* 스토어 타입

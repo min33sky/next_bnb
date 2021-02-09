@@ -13,6 +13,8 @@ import palette from '../../styles/palette';
 import Button from '../common/Button';
 import { signupAPI } from '../../lib/api/auth';
 import { userActions } from '../../store/user';
+import { commonActions } from '../../store/common';
+import useValidateMode from '../../hooks/useValidateMode';
 
 const Container = styled.form`
   width: 568px;
@@ -96,6 +98,7 @@ export default function SignUpModal() {
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
 
   const dispatch = useDispatch();
+  const { setValidateMode } = useValidateMode();
 
   const onChangeBirthMonth = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setBirthMonth(event.target.value);
@@ -123,8 +126,17 @@ export default function SignUpModal() {
     setHidePassword(!hidePassword);
   };
 
+  // 회원가입 폼 제출하기
   const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setValidateMode(true); // Input에 대한 검증 실시
+
+    if (!email || !lastname || !firstname || !password) {
+      return;
+    }
+
+    // 유효성 체크 후 API 호출
     try {
       const signUpBody = {
         email,
@@ -163,6 +175,9 @@ export default function SignUpModal() {
           icon={<MailIcon />}
           value={email}
           onChange={onChangeEmail}
+          useValidation
+          isValid={!!email}
+          errorMessage="이메일이 필요합니다."
         />
       </InputWrapper>
       <InputWrapper>
@@ -172,6 +187,9 @@ export default function SignUpModal() {
           icon={<PersonIcon />}
           value={lastname}
           onChange={onChangeLastname}
+          useValidation
+          isValid={!!lastname}
+          errorMessage="이름을 입력하세요."
         />
       </InputWrapper>
       <InputWrapper>
@@ -181,6 +199,9 @@ export default function SignUpModal() {
           icon={<PersonIcon />}
           value={firstname}
           onChange={onChangeFirstname}
+          useValidation
+          isValid={!!firstname}
+          errorMessage="성을 입력하세요."
         />
       </InputWrapper>
       <InputWrapper className="sign-up-password-input-wrapper">
@@ -196,6 +217,9 @@ export default function SignUpModal() {
           }
           value={password}
           onChange={onChangePassword}
+          useValidation
+          isValid={!!password}
+          errorMessage="비밀번호를 입력하세요."
         />
       </InputWrapper>
 
