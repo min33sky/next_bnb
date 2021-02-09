@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import PersonIcon from '../../public/static/svg/logo/person.svg';
 import OpenedEyeIcon from '../../public/static/svg/logo/opened-eye.svg';
 import ClosedEyeIcon from '../../public/static/svg/logo/closeed-eye.svg';
@@ -11,6 +12,7 @@ import { dayList, monthList, yearList } from '../../lib/staticData';
 import palette from '../../styles/palette';
 import Button from '../common/Button';
 import { signupAPI } from '../../lib/api/auth';
+import { userActions } from '../../store/user';
 
 const Container = styled.form`
   width: 568px;
@@ -93,6 +95,8 @@ export default function SignUpModal() {
   const [birthDay, setBirthDay] = useState<string | undefined>();
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
 
+  const dispatch = useDispatch();
+
   const onChangeBirthMonth = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setBirthMonth(event.target.value);
   };
@@ -134,7 +138,10 @@ export default function SignUpModal() {
           )}-${birthDay!.replace('일', '')}`
         ).toISOString(),
       };
-      await signupAPI(signUpBody);
+
+      const { data } = await signupAPI(signUpBody);
+      // 응답 결과를 스토어에 저장
+      dispatch(userActions.setLoggedUser(data));
     } catch (e) {
       console.log(e);
     }

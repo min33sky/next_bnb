@@ -1,5 +1,6 @@
 import { AppProps } from 'next/app';
 import Header from '../components/Header';
+import { wrapper } from '../store';
 import GlobalStyle from '../styles/GlobalStyle';
 
 /**
@@ -8,7 +9,7 @@ import GlobalStyle from '../styles/GlobalStyle';
  * @param Component 페이지 컴포넌트
  * @param pageProps SSR로 컴포넌트에 전달해 줄 Props
  */
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <GlobalStyle />
@@ -18,3 +19,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
   );
 }
+
+export default wrapper.withRedux(App);
