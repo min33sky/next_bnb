@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { StoredUserType } from '../../../types/user.d';
 import Data from '../../../lib/data';
-import { StoredUserType } from '../../../types/user';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // 기존 사용자 찾기
     const userExist = Data.user.exist({ email });
     if (userExist) {
-      res.status(409).send('이미 가입된 이메일입니다.');
+      return res.status(409).send('이미 가입된 이메일입니다.');
     }
 
     // 패스워드 해시화하기
@@ -46,17 +46,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // JWT 생성
     const token = jwt.sign(String(newUser.id), process.env.JWT_SECRET!);
 
-    console.log('토큰 : ', token);
+    // ? Date() 사용 시 결과에 한글이 들어가서 toISOString() 사용 안하면
+    // ? TypeError [ERR_INVALID_CHAR]: Invalid character in header content ["Set-Cookie"] 발생
+    const setToken = `access_token=${token}; path=/; expires=${new Date(
+      Date.now() + 60 * 60 * 24 * 1000 * 3 // 3일
+    ).toISOString()}; httponly`;
+
+    console.log('토큰 : ', setToken);
 
     // 헤더에 Set-Cookie 설정
-    // res.setHeader(
-    //   'Set-Cookie',
-    //   `access_token=${token}; path=/; expires=${new Date(
-    //     Date.now() + 60 * 60 * 24 * 1000 * 3 // 3일
-    //   )}; httponly`
-    // );
+    res.setHeader('Set-Cookie', setToken);
 
-    return res.end();
+    // 보안 위배 정보를 제외하고 클라이언트에 전달하기
+    const newUserWithoutPassword: Partial<
+      Pick<StoredUserType, 'password'>
+    > = newUser; // optional 프로퍼티로 변경
+
+    delete newUserWithoutPassword.password;
+
+    return res.status(200).send(newUserWithoutPassword);
   }
 
   return res.status(405).end();

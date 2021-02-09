@@ -1,3 +1,4 @@
+import { UserType } from '../../types/user.d';
 import axios from '.';
 
 export interface SignUpAPIBody {
@@ -10,4 +11,4 @@ export interface SignUpAPIBody {
 
 // 회원가입 API
 export const signupAPI = (body: SignUpAPIBody) =>
-  axios.post('/api/auth/signup', body);
+  axios.post<UserType>('/api/auth/signup', body);
