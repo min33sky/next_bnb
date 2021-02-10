@@ -15,6 +15,7 @@ import { signupAPI } from '../../lib/api/auth';
 import { userActions } from '../../store/user';
 import useValidateMode from '../../hooks/useValidateMode';
 import PasswordWarning from './PasswordWarning';
+import { authActions } from '../../store/auth';
 
 //* 비밀번호 최소 자릿수
 const PASSWORD_MIN_LENGTH = 8;
@@ -25,7 +26,7 @@ const Container = styled.form`
   background-color: white;
   z-index: 11;
 
-  & > .modal-close-x-icon {
+  .modal-close-x-icon {
     cursor: pointer;
     display: block;
     margin: 0 0 40px auto;
@@ -155,6 +156,9 @@ export default function SignUpModal({ closeModal }: IProps) {
   };
   const toggleHidePassword = () => {
     setHidePassword(!hidePassword);
+  };
+  const changeToLoginModal = () => {
+    dispatch(authActions.setAuthMode('login'));
   };
 
   //* password가 이름이나 이메일을 포함하는지
@@ -368,7 +372,7 @@ export default function SignUpModal({ closeModal }: IProps) {
         <span
           className="sign-up-modal-set-login"
           role="presentation"
-          onClick={() => alert('준비중')}
+          onClick={changeToLoginModal}
         >
           로그인
         </span>
