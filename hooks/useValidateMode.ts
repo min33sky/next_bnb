@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { commonActions } from '../store/common';
 
@@ -8,8 +9,10 @@ export default function useValidateMode() {
   const dispatch = useDispatch();
   const validateMode = useSelector((state) => state.common.validateMode);
 
-  const setValidateMode = (value: boolean) =>
-    dispatch(commonActions.setValidateMode(value));
+  const setValidateMode = useCallback(
+    (value: boolean) => dispatch(commonActions.setValidateMode(value)),
+    [dispatch]
+  );
 
   return { validateMode, setValidateMode };
 }

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import PersonIcon from '../../public/static/svg/auth/person.svg';
@@ -42,6 +42,16 @@ const Container = styled.form`
     margin-bottom: 16px;
     color: ${palette.charcoal};
   }
+
+  .sign-up-modal-set-login {
+    color: ${palette.dark_cyan};
+    margin-left: 8px;
+    cursor: pointer;
+
+    :hover {
+      color: ${palette.orange};
+    }
+  }
 `;
 
 const InputWrapper = styled.div`
@@ -71,25 +81,33 @@ const SelectorsWrapper = styled.div`
   display: flex;
   margin-bottom: 24px;
 
+  /* 월 */
   & > :first-child {
     margin-right: 16px;
     flex-grow: 1;
   }
 
+  /* 일 */
   & > :nth-child(2) {
     margin-right: 16px;
     width: 25%;
   }
 
+  /* 년도 */
   & > :last-child {
     width: 33.3%;
   }
 `;
 
+interface IProps {
+  closeModal: () => void;
+}
+
 /**
  * 회원 가입 모달
+ * @param closeModal 모달 닫기 함수
  */
-export default function SignUpModal() {
+export default function SignUpModal({ closeModal }: IProps) {
   const [email, setEmail] = useState('');
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -105,6 +123,13 @@ export default function SignUpModal() {
   const dispatch = useDispatch();
 
   const { setValidateMode } = useValidateMode();
+
+  useEffect(() => {
+    return () => {
+      // 컴포넌트 언마운트 시 검증 모드를 안함으로 설정
+      setValidateMode(false);
+    };
+  }, [setValidateMode]);
 
   const onChangeBirthMonth = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setBirthMonth(event.target.value);
@@ -132,44 +157,6 @@ export default function SignUpModal() {
     setHidePassword(!hidePassword);
   };
 
-  //* 회원가입 폼 제출하기
-  const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    setValidateMode(true); // Input에 대한 검증 실시
-
-    if (!email || !lastname || !firstname || !password) {
-      return;
-    }
-
-    // 유효성 체크 후 API 호출
-    try {
-      const signUpBody = {
-        email,
-        lastname,
-        firstname,
-        password,
-        birthday: new Date(
-          `${birthYear!.replace('년', '')}-${birthMonth!.replace(
-            '월',
-            ''
-          )}-${birthDay!.replace('일', '')}`
-        ).toISOString(),
-      };
-
-      const { data } = await signupAPI(signUpBody);
-      // 응답 결과를 스토어에 저장
-      dispatch(userActions.setLoggedUser(data));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  //* 비밀번호 인풋 포커스 되었을 때
-  const onFocusPassword = () => {
-    setPasswordFocused(true);
-  };
-
   //* password가 이름이나 이메일을 포함하는지
   const isPasswordHasNameOrEmail = useMemo(
     () =>
@@ -194,14 +181,68 @@ export default function SignUpModal() {
     [password]
   );
 
+  //* 회원 가입 폼 입력 값 확인하기
+  const validateSignUpForm = () => {
+    // 인풋 값이 없다면
+    if (!email || !lastname || !firstname || !password) return false;
+
+    // 비밀번호가 올바르지 않다면
+    if (
+      isPasswordHasNameOrEmail ||
+      !isPasswordOverMinLength ||
+      !isPasswordHasNumberOrSymbol
+    )
+      return false;
+
+    // 생년월일 셀렉터 값이 없다면
+    if (!birthDay || !birthMonth || !birthYear) return false;
+
+    return true;
+  };
+
+  //* 회원가입 폼 제출하기
+  const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    setValidateMode(true); // Input에 대한 검증 실시를 스토어에 저장
+
+    // 유효성 체크 후 API 호출
+    if (validateSignUpForm()) {
+      try {
+        const signUpBody = {
+          email,
+          lastname,
+          firstname,
+          password,
+          birthday: new Date(
+            `${birthYear!.replace('년', '')}-${birthMonth!.replace(
+              '월',
+              ''
+            )}-${birthDay!.replace('일', '')}`
+          ).toISOString(),
+        };
+
+        const { data } = await signupAPI(signUpBody);
+        // 응답 결과를 스토어에 저장
+        dispatch(userActions.setLoggedUser(data));
+
+        closeModal();
+
+        console.log('가입 완료', data);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  };
+
+  //* 비밀번호 인풋 포커스 되었을 때
+  const onFocusPassword = () => {
+    setPasswordFocused(true);
+  };
+
   return (
     <Container onSubmit={onSubmitSignUp}>
-      <CloseXIcon
-        className="modal-close-x-icon"
-        onClick={() => {
-          console.log('아직 안됨');
-        }}
-      />
+      <CloseXIcon className="modal-close-x-icon" onClick={closeModal} />
       <InputWrapper>
         <Input
           type="email"
@@ -293,6 +334,7 @@ export default function SignUpModal() {
             defaultValue="월"
             value={birthMonth}
             onChange={onChangeBirthMonth}
+            isValid={!!birthMonth}
           />
         </div>
         <div className="day">
@@ -302,6 +344,7 @@ export default function SignUpModal() {
             defaultValue="일"
             value={birthDay}
             onChange={onChangeBirthDay}
+            isValid={!!birthDay}
           />
         </div>
         <div className="year">
@@ -311,6 +354,7 @@ export default function SignUpModal() {
             defaultValue="년"
             value={birthYear}
             onChange={onChangeBirthYear}
+            isValid={!!birthYear}
           />
         </div>
       </SelectorsWrapper>
@@ -318,6 +362,17 @@ export default function SignUpModal() {
       <ButtonWrapper>
         <Button type="submit">가입하기</Button>
       </ButtonWrapper>
+
+      <p>
+        이미 에어비앤비 계정이 있나요?
+        <span
+          className="sign-up-modal-set-login"
+          role="presentation"
+          onClick={() => alert('준비중')}
+        >
+          로그인
+        </span>
+      </p>
     </Container>
   );
 }

@@ -63,7 +63,7 @@ const LoginButton = styled.button`
  * Airbnb 공통 헤더
  */
 export default function Header() {
-  const { openModal, ModalPortal } = useModal();
+  const { openModal, ModalPortal, closeModal } = useModal();
 
   return (
     <Container>
@@ -80,7 +80,7 @@ export default function Header() {
       </div>
 
       <ModalPortal>
-        <SignUpModal />
+        <SignUpModal closeModal={closeModal} />
       </ModalPortal>
     </Container>
   );
