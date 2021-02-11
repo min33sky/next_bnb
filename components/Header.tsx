@@ -62,7 +62,7 @@ const LoginButton = styled.button`
   }
 `;
 
-const HeaderUserProfile = styled.button`
+const ProfileButton = styled.button`
   display: flex;
   align-items: center;
   height: 42px;
@@ -78,6 +78,7 @@ const HeaderUserProfile = styled.button`
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
   }
 
+  /* 사용자 이미지 */
   img {
     margin-left: 8px;
     width: 30px;
@@ -104,34 +105,41 @@ export default function Header() {
         </HeaderLogoWrapper>
       </Link>
 
-      {!user.isLogged && (
-        <div>
-          <SignupButton
-            onClick={() => {
-              dispatch(authActions.setAuthMode('signup'));
-              openModal();
-            }}
-          >
-            회원 가입
-          </SignupButton>
-          <LoginButton
-            onClick={() => {
-              dispatch(authActions.setAuthMode('login'));
-              openModal();
-            }}
-          >
-            로그인
-          </LoginButton>
-        </div>
-      )}
+      {
+        //* 비로그인 시 보여줄 메뉴
+        !user.isLogged && (
+          <div>
+            <SignupButton
+              onClick={() => {
+                dispatch(authActions.setAuthMode('signup'));
+                openModal();
+              }}
+            >
+              회원 가입
+            </SignupButton>
+            <LoginButton
+              onClick={() => {
+                dispatch(authActions.setAuthMode('login'));
+                openModal();
+              }}
+            >
+              로그인
+            </LoginButton>
+          </div>
+        )
+      }
 
-      {user.isLogged && (
-        <HeaderUserProfile>
-          <HamburgerIcon />
-          <img src={user.profileImage} alt="UserImage" />
-        </HeaderUserProfile>
-      )}
+      {
+        //* 로그인 시 보여줄 메뉴
+        user.isLogged && (
+          <ProfileButton>
+            <HamburgerIcon />
+            <img src={user.profileImage} alt="UserImage" />
+          </ProfileButton>
+        )
+      }
 
+      {/** Portal에 랜더링 할 모달 컴포넌트 */}
       <ModalPortal>
         <AuthModal closeModal={closeModal} />
       </ModalPortal>

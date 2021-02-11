@@ -1,4 +1,4 @@
-# Next로 Airbnb 따라하기
+# Next_Airbnb Clone
 
 > 제곧내
 

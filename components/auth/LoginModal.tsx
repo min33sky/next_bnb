@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import CloseXIcon from '../../public/static/svg/modal/modal_colose_x_icon.svg';
@@ -9,6 +9,9 @@ import Input from '../common/Input';
 import palette from '../../styles/palette';
 import Button from '../common/Button';
 import { authActions } from '../../store/auth';
+import { loginAPI } from '../../lib/api/auth';
+import useValidateMode from '../../hooks/useValidateMode';
+import { userActions } from '../../store/user';
 
 const Container = styled.form`
   width: 568px;
@@ -71,6 +74,14 @@ export default function LoginModal({ closeModal }: IProps) {
 
   const [isPasswordHided, setIsPasswordHided] = useState(true);
 
+  const { setValidateMode } = useValidateMode();
+
+  useEffect(() => {
+    return () => {
+      setValidateMode(false);
+    };
+  }, [setValidateMode]);
+
   const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
@@ -87,8 +98,24 @@ export default function LoginModal({ closeModal }: IProps) {
     dispatch(authActions.setAuthMode('signup'));
   };
 
+  const onSubmitLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    setValidateMode(true); // INPUT 검증 모드 ON
+
+    const loginBody = { email, password };
+
+    try {
+      const { data } = await loginAPI(loginBody);
+      dispatch(userActions.setLoggedUser(data));
+      closeModal();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <Container>
+    <Container onSubmit={onSubmitLogin}>
       <CloseXIcon className="modal-close-x-icon" onClick={closeModal} />
       <InputWrapper>
         <Input
@@ -98,6 +125,8 @@ export default function LoginModal({ closeModal }: IProps) {
           icon={<MailICon />}
           value={email}
           onChange={onChangeEmail}
+          isValid={email !== ''}
+          errorMessage="이메일이 필요합니다."
         />
       </InputWrapper>
       <InputWrapper className="login-password-input-wrapper">
@@ -113,6 +142,8 @@ export default function LoginModal({ closeModal }: IProps) {
           }
           value={password}
           onChange={onChangePassword}
+          isValid={password !== ''}
+          errorMessage="비밀번호를 입력하세요."
         />
       </InputWrapper>
 
