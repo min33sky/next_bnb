@@ -23,6 +23,8 @@ interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * 버튼 컴포넌트
  * @param children 버튼 이름
  */
-export default function Button({ children, ...props }: IProps) {
+function Button({ children, ...props }: IProps) {
   return <Container {...props}>{children}</Container>;
 }
+
+export default React.memo(Button);

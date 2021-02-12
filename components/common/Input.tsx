@@ -80,7 +80,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 /**
  * 인풋 컴포넌트
  */
-export default function Input({
+function Input({
   icon,
   isValid = false,
   useValidation = true,
@@ -103,3 +103,5 @@ export default function Input({
     </Container>
   );
 }
+
+export default React.memo(Input);

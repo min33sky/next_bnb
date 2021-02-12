@@ -51,7 +51,7 @@ interface IProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
  * @param isValid 유효성 체크
  *
  */
-export default function Selector({
+function Selector({
   options = [],
   disabledOptions = [],
   isValid,
@@ -82,3 +82,5 @@ export default function Selector({
     </Container>
   );
 }
+
+export default React.memo(Selector);
