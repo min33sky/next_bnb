@@ -3,15 +3,18 @@ import { createWrapper, HYDRATE, MakeStore } from 'next-redux-wrapper';
 import { combineReducers } from 'redux';
 import auth from './auth';
 import common from './common';
+import registerRoom from './registerRoom';
 import user from './user';
 
+//* 리듀서들을 하나로 합쳐준다.
 const rootReducer = combineReducers({
   user: user.reducer,
   common: common.reducer,
   auth: auth.reducer,
+  registerRoom: registerRoom.reducer,
 });
 
-//* 스토어 타입
+//* 스토어 타입 (useSelector의 타입을 지정할 때 필요)
 export type RootState = ReturnType<typeof rootReducer>;
 
 let initialRootState: RootState;
@@ -38,7 +41,7 @@ declare module 'react-redux' {
 const initStore: MakeStore = () => {
   const store = configureStore({
     reducer,
-    devTools: process.env.NODE_ENV !== 'production',
+    devTools: process.env.NODE_ENV !== 'production', // 개발 모드일때만 DevTools 작동
   });
   initialRootState = store.getState();
   return store;

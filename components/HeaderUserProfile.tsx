@@ -64,11 +64,14 @@ const HeaderUsermenu = styled.ul`
   }
 `;
 
+/**
+ * 로그인 시 헤더에 보여줄 메뉴
+ */
 export default function HeaderUserProfile() {
   const dispatch = useDispatch();
   const userProfileImage = useSelector((state) => state.user.profileImage);
 
-  const [isUsermenuOpened, setIsUsermenuOpened] = useState(false); // 로그인 유저 메뉴 버튼 클릭
+  const [isUsermenuOpened, setIsUsermenuOpened] = useState(false); // 로그인 유저 메뉴 버튼 클릭 여부
 
   const logout = async () => {
     try {
@@ -78,6 +81,10 @@ export default function HeaderUserProfile() {
       console.log(error.message);
     }
   };
+
+  /**
+   *? OutsiceClickHandler: 현재 컴포넌트(메뉴) 밖을 클릭하면 이벤트를 발생시키는 컴포넌트
+   */
 
   return (
     <OutsideClickHandler

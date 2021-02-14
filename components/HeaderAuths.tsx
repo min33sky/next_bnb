@@ -63,7 +63,7 @@ export default function HeaderAuths() {
         </LoginButton>
       </div>
 
-      {/** Portal에 랜더링 할 모달 컴포넌트 */}
+      {/** React-Portal에 랜더링 할 모달 컴포넌트 */}
       <ModalPortal>
         <AuthModal closeModal={closeModal} />
       </ModalPortal>

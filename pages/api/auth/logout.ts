@@ -1,11 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 /**
- * 로그아웃
+ * 로그아웃 API
  * 1. 쿠키의 access_token 제거 (쿠기가 httponly 속성이므로 javascript로 제거 불가능함)
  * 2. 리덕스 스토어의 유저 정보 제거 및 isLogged를 false로 변경
  */
-
 export default (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // 로그아웃
@@ -15,7 +14,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         'Set-Cookie',
         'access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly'
       );
-      // ? 204: No Content
+      // ? statusCode 204: No Content
       return res.status(204).end();
     }
   } catch (error) {
