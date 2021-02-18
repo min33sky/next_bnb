@@ -6,7 +6,7 @@ import common from './common';
 import registerRoom from './registerRoom';
 import user from './user';
 
-//* 리듀서들을 하나로 합쳐준다.
+//* 각각의 리듀서들을 하나로 합쳐준다.
 const rootReducer = combineReducers({
   user: user.reducer,
   common: common.reducer,

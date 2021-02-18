@@ -16,10 +16,14 @@ import RadioGroup from '../common/RadioGroup';
 import Selector from '../common/Selector';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
-//* 선택 불가능한 큰 범위 건물 유형
+/**
+ * 선택 불가능한 큰 범위 건물 유형
+ */
 const disabledLargeBuildingTypeOptions = ['하나를 선택해주세요.'];
 
-//* 숙소 유형 radio options
+/**
+ * 숙소 유형 radio options
+ */
 const roomTypeRadioOptions = [
   {
     label: '집 전체',
@@ -41,7 +45,9 @@ const roomTypeRadioOptions = [
   },
 ];
 
-//* 게스트만 사용하도록 만들어진 숙소인지 라디오 options
+/**
+ * 게스트만 사용하도록 만들어진 숙소인지 선택하는 radio options
+ */
 const isSetUpForGuestOptions = [
   {
     label: '예, 게스트용으로 따로 마련된 숙소입니다.',
@@ -53,7 +59,8 @@ const isSetUpForGuestOptions = [
   },
 ];
 
-//* Style
+//* ------------------------------------- Style ----------------------------------------- //
+
 const Container = styled.div`
   /* padding: 62px 30px 100px; */
   padding: 102px 30px 100px;
@@ -87,6 +94,8 @@ const Container = styled.div`
     margin-bottom: 50px;
   }
 `;
+
+//* ------------------------------------------------------------------------------------- //
 
 /**
  * 숙소 건물 등록 컴포넌트
@@ -126,7 +135,9 @@ export default function RegisterRoomBuilding() {
     dispatch(registerRoomActions.setIsSetUpForGuest(value));
   };
 
-  //* 선택된 건물 유형 options
+  /**
+   * 선택된 건물 유형 options
+   */
   const detailBuildingOptions = useMemo(() => {
     // ? 큰 건물 유형이 선택되었을 때 상세 건물 유형 스토어 상태 업데이트
     switch (largeBuildingType) {
@@ -173,7 +184,9 @@ export default function RegisterRoomBuilding() {
     }
   }, [largeBuildingType, dispatch]);
 
-  //* 모든 값이 있는지 검증하기
+  /**
+   * 모든 선택 항목이 다 선택되었는지 검증
+   */
   const isValid = useMemo(() => {
     if (
       !largeBuildingType ||
@@ -227,6 +240,7 @@ export default function RegisterRoomBuilding() {
               isValid={!!roomType}
             />
           </div>
+
           <div className="register-room-is-setup-for-guest-radio">
             <RadioGroup
               label="게스트만 사용하도록 만들어진 숙소인가요?"
@@ -238,6 +252,7 @@ export default function RegisterRoomBuilding() {
           </div>
         </>
       )}
+
       <RegisterRoomFooter
         isValid={isValid}
         prevHref="/"

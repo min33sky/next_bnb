@@ -2,6 +2,8 @@
  *? 정적 데이터를 모아두는 파일
  */
 
+import { BedType } from '../types/room';
+
 //* 1월부터 12월까지
 export const monthList = [
   '1월',

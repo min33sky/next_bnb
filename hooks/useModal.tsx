@@ -40,11 +40,11 @@ const useModal = () => {
   }
 
   /**
-   * 모달 포탈
+   * 모달을 보여줄 포탈 컴포넌트
    * @param children 화면에 보여줄 모달 컴포넌트
    */
   function ModalPortal({ children }: IProps) {
-    const ref = useRef<Element | null>();
+    const ref = useRef<Element | null>(); // 모달을 띄울 DOM의 ref
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -55,7 +55,7 @@ const useModal = () => {
       }
     }, []);
 
-    // ? ref가 dom을 가리키고 포탈 컴포넌트가 마운트 그리고 모달 상태가 오픈이 되면 모달 표시
+    // ? ref가 dom을 가리키고 포탈 컴포넌트가 마운트 그리고 모달의 상태가 오픈이 되면 모달을 표시
     if (ref.current && mounted && modalOpened) {
       return createPortal(
         <Container>

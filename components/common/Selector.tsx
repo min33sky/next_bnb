@@ -118,6 +118,8 @@ const Container = styled.div<SelectorContainerProps>`
   }
 `;
 
+//* ------------------------------------------------------------------------------------- //
+
 interface IProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   options?: string[];
@@ -148,7 +150,7 @@ function Selector({
   useValidation = true,
   type = 'normal',
   disabledOptions = [],
-  ...props
+  ...props // ? ex) onChange, ...
 }: IProps) {
   // 스토어에서 검증 모드인지 체크
   const validateMode = useSelector((state) => state.common.validateMode);

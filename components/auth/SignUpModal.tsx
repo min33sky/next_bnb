@@ -109,6 +109,8 @@ const SelectorsWrapper = styled.div`
   }
 `;
 
+//* ------------------------------------------------------------------------------------- //
+
 interface IProps {
   closeModal: () => void;
 }
@@ -136,7 +138,7 @@ export default function SignUpModal({ closeModal }: IProps) {
 
   useEffect(() => {
     return () => {
-      // 컴포넌트 언마운트 시 검증 모드를 안함으로 설정
+      // ? 컴포넌트 언마운트 시 검증 모드를 안함으로 설정
       setValidateMode(false);
     };
   }, [setValidateMode]);
@@ -170,7 +172,9 @@ export default function SignUpModal({ closeModal }: IProps) {
     dispatch(authActions.setAuthMode('login'));
   };
 
-  //* password가 이름이나 이메일을 포함하는지
+  /**
+   * password가 이름이나 이메일을 포함하는지
+   */
   const isPasswordHasNameOrEmail = useMemo(
     () =>
       !password ||
@@ -180,13 +184,17 @@ export default function SignUpModal({ closeModal }: IProps) {
     [password, lastname, email]
   );
 
-  //* 비밀번호가 최소 자릿수 이상인지
+  /**
+   * 비밀번호가 최소 자릿수 이상인지
+   */
   const isPasswordOverMinLength = useMemo(
     () => !!password && password.length >= PASSWORD_MIN_LENGTH,
     [password]
   );
 
-  //* 비밀번호가 숫자나 특수기호를 포함하는지
+  /**
+   * 비밀번호가 숫자나 특수기호를 포함하는지
+   */
   const isPasswordHasNumberOrSymbol = useMemo(
     () =>
       /[{}[\]/?.,;:|)*~1!^\-_+<>@#$%^&\\=('"]/g.test(password) ||
@@ -194,7 +202,9 @@ export default function SignUpModal({ closeModal }: IProps) {
     [password]
   );
 
-  //* 회원 가입 폼 입력 값 확인하기
+  /**
+   * 회원 가입 폼 입력 값 확인하기
+   */
   const validateSignUpForm = () => {
     // 인풋 값이 없다면
     if (!email || !lastname || !firstname || !password) return false;
@@ -213,7 +223,9 @@ export default function SignUpModal({ closeModal }: IProps) {
     return true;
   };
 
-  //* 회원가입 폼 제출하기
+  /**
+   * 회원가입 폼 제출하기
+   */
   const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -248,7 +260,9 @@ export default function SignUpModal({ closeModal }: IProps) {
     }
   };
 
-  //* 비밀번호 인풋 포커스 되었을 때
+  /**
+   * 비밀번호 인풋 포커스 되었을 때
+   */
   const onFocusPassword = () => {
     setPasswordFocused(true);
   };
@@ -316,6 +330,7 @@ export default function SignUpModal({ closeModal }: IProps) {
           onFocus={onFocusPassword}
         />
       </InputWrapper>
+
       {passwordFocused && (
         <>
           <PasswordWarning

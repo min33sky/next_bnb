@@ -46,6 +46,7 @@ const InputWrapper = styled.div`
     top: 16px;
   }
 
+  /* 패스워드 입력창의 시각화 */
   &.login-password-input-wrapper {
     svg {
       cursor: pointer;
@@ -58,6 +59,8 @@ const ButtonWrapper = styled.div`
   padding-bottom: 16px;
   border-bottom: 1px solid ${palette.gray_eb};
 `;
+
+//* ------------------------------------------------------------------------------------- //
 
 interface IProps {
   closeModal: () => void;
@@ -117,6 +120,7 @@ export default function LoginModal({ closeModal }: IProps) {
   return (
     <Container onSubmit={onSubmitLogin}>
       <CloseXIcon className="modal-close-x-icon" onClick={closeModal} />
+
       <InputWrapper>
         <Input
           placeholder="이메일 주소"
@@ -129,6 +133,7 @@ export default function LoginModal({ closeModal }: IProps) {
           errorMessage="이메일이 필요합니다."
         />
       </InputWrapper>
+
       <InputWrapper className="login-password-input-wrapper">
         <Input
           placeholder="비밀번호 입력"

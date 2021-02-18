@@ -20,6 +20,9 @@ const globalStyle = css`
   }
 `;
 
+/**
+ * App의 공통 스타일 설정
+ */
 const GlobalStyle = createGlobalStyle`
   ${globalStyle}
 `;

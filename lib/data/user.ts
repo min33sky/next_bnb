@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'fs';
 import { StoredUserType } from '../../types/user';
 
 /**
- * 전체 유저 리스트를 리턴하는 함수
+ * 전체 유저 리스트를 DB에서 불러오는 함수
  */
 const getList = () => {
   const usersBuffer = readFileSync('data/users.json');
