@@ -47,6 +47,7 @@ const registerRoom = createSlice({
       state.largeBuildingType = action.payload;
       return state;
     },
+
     //* 건물 유형 변경하기
     setBuildingType(state, action: PayloadAction<string>) {
       if (action.payload === '') {
@@ -99,6 +100,31 @@ const registerRoom = createSlice({
     //* 최대 침대 개수 변경하기
     setBedCount(state, action: PayloadAction<number>) {
       state.bedCount = action.payload;
+      return state;
+    },
+
+    //* 침대 유형 개수 변경하기
+    setBedTypeCount(
+      state,
+      action: PayloadAction<{ bedroomId: number; type: BedType; count: number }>
+    ) {
+      const { bedroomId, type, count } = action.payload;
+      const bedroom = state.bedList[bedroomId - 1];
+      const prevBeds = bedroom.beds;
+      const index = prevBeds.findIndex((bed) => bed.type === type);
+      if (index === -1) {
+        // 해당 침대 타입이 없다면
+        state.bedList[bedroomId - 1].beds = [...prevBeds, { type, count }];
+        return state;
+      }
+
+      if (count === 0) {
+        // 타입은 있지만 개수가 0일때 배열에서 삭제한다.
+        state.bedList[bedroomId - 1].beds.splice(index, 1);
+      } else {
+        // 타입이 존재할 때
+        state.bedList[bedroomId - 1].beds[index].count = count;
+      }
       return state;
     },
   },

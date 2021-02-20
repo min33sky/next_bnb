@@ -14,7 +14,10 @@ const rootReducer = combineReducers({
   registerRoom: registerRoom.reducer,
 });
 
-//* 스토어 타입 (useSelector의 타입을 지정할 때 필요)
+/**
+ * 스토어 타입 (useSelector의 타입을 지정할 때 필요)
+ * ? ReturnType: 함수의 리턴 타입을 가져오는 유틸리티 타입
+ */
 export type RootState = ReturnType<typeof rootReducer>;
 
 let initialRootState: RootState;
