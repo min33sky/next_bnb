@@ -33,6 +33,12 @@ const Container = styled.li`
     width: 320px;
   }
 
+  .register-room-bed-type-bedroom-counts {
+    font-size: 19px;
+    color: ${palette.gray_76};
+    margin-bottom: 18px;
+  }
+
   .register-room-bed-type-counter {
     width: 250px;
     margin-bottom: 18px;
@@ -51,12 +57,13 @@ interface IProps {
  * @param bedroom 침실
  */
 export default function RegisterRoomBedTypes({ bedroom }: IProps) {
-  // 선택된 옵션의 초기값 (스토어에 저장된 값)
+  //* 선택된 침대 옵션의 초기값 (스토어에 저장된 값)
   const initialBedOptions = bedroom.beds.map((bed) => bed.type);
 
-  // 셀렉터가 보여지는지 유무
+  //* 침대 Selector가 보여지는지 유무
   const [opened, setOpened] = useState(false);
-  // 선택된 침대 옵션들
+
+  //* 선택된 침대 옵션들
   const [activedBedOptions, setActivedBedOptions] = useState<BedType[]>(
     initialBedOptions
   );
@@ -103,13 +110,19 @@ export default function RegisterRoomBedTypes({ bedroom }: IProps) {
       })
     );
 
+  const bedsText = useMemo(() => {
+    const texts = bedroom.beds.map((bed) => `${bed.type} ${bed.count}개`);
+    return texts.join(',');
+  }, [bedroom]);
+
   return (
     <Container>
       <div className="register-room-bed-type-top">
         <div className="register-room-bed-type-bedtoom-texts">
           <p className="register-room-bed-type-bedroom">{bedroom.id}번 침실</p>
           <p className="register-room-bed-type-bedroom-counts">
-            침대 {totalBedsCount}개
+            침대 {totalBedsCount}개 <br />
+            {bedsText}
           </p>
         </div>
 
