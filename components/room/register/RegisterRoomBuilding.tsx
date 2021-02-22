@@ -9,11 +9,12 @@ import {
   largeBuildingTypeList,
   secondaryUnitBuildingTypeList,
   uniqueSpaceBuildingTypeList,
-} from '../../lib/staticData';
-import { registerRoomActions } from '../../store/registerRoom';
-import palette from '../../styles/palette';
-import RadioGroup from '../common/RadioGroup';
-import Selector from '../common/Selector';
+} from '../../../lib/staticData';
+import { registerRoomActions } from '../../../store/registerRoom';
+import palette from '../../../styles/palette';
+import RadioGroup from '../../common/RadioGroup';
+import Selector from '../../common/Selector';
+
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 /**
