@@ -1,5 +1,5 @@
 import React from 'react';
-import RegisterRoomBedrooms from '../../../components/register/RegisterRoomBedrooms';
+import RegisterRoomBedrooms from '../../../components/room/register/RegisterRoomBedrooms';
 
 function bedrooms() {
   return <RegisterRoomBedrooms />;

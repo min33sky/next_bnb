@@ -1,13 +1,13 @@
 import React, { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { bedTypes } from '../../lib/staticData';
-import { registerRoomActions } from '../../store/registerRoom';
-import palette from '../../styles/palette';
-import { BedType } from '../../types/room';
-import Button from '../common/Button';
-import Counter from '../common/Counter';
-import Selector from '../common/Selector';
+import { bedTypes } from '../../../lib/staticData';
+import { registerRoomActions } from '../../../store/registerRoom';
+import palette from '../../../styles/palette';
+import { BedType } from '../../../types/room';
+import Button from '../../common/Button';
+import Counter from '../../common/Counter';
+import Selector from '../../common/Selector';
 
 const Container = styled.li`
   width: 100%;

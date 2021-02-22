@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { bedroomCountList } from '../../lib/staticData';
-import { getNumber } from '../../lib/utils';
-import { registerRoomActions } from '../../store/registerRoom';
-import palette from '../../styles/palette';
-import Counter from '../common/Counter';
-import Selector from '../common/Selector';
+import { bedroomCountList } from '../../../lib/staticData';
+import { getNumber } from '../../../lib/utils';
+import { registerRoomActions } from '../../../store/registerRoom';
+import palette from '../../../styles/palette';
+import Counter from '../../common/Counter';
+import Selector from '../../common/Selector';
 import RegisterRoomBedList from './RegisterRoomBedList';
-import RegisterRoomBedTypes from './RegisterRoomBedTypes';
+import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
   padding: 102px 30px 100px;
@@ -69,7 +69,7 @@ const Container = styled.div`
 //* ------------------------------------------------------------------------------------- //
 
 /**
- * 숙소의 침대 등록
+ * 숙소 등록하기 [2단계: 침실 등록]
  */
 export default function RegisterRoomBedrooms() {
   const maximumGuestCount = useSelector(
@@ -77,7 +77,6 @@ export default function RegisterRoomBedrooms() {
   );
   const bedRoomCount = useSelector((state) => state.registerRoom.bedroomCount);
   const bedCount = useSelector((state) => state.registerRoom.bedCount);
-  const bedList = useSelector((state) => state.registerRoom.bedList);
 
   const dispatch = useDispatch();
 
@@ -132,6 +131,7 @@ export default function RegisterRoomBedrooms() {
           onChange={onChangeBedroomCount}
           label="게스트가 사용할 수 있는 침실은 몇 개인가요?"
           options={bedroomCountList}
+          isValid={!!bedRoomCount} // 침실 개수가 0개면 무효
         />
       </div>
 
@@ -145,6 +145,12 @@ export default function RegisterRoomBedrooms() {
         게스트가 잘 파악할 수 있습니다.
       </p>
       <RegisterRoomBedList />
+
+      <RegisterRoomFooter
+        prevHref="/room/register/building"
+        nextHref="/room/register/bathroom"
+        isValid={!!bedRoomCount}
+      />
     </Container>
   );
 }

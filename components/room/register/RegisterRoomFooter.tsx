@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import useValidateMode from '../../hooks/useValidateMode';
-import BackArrowIcon from '../../public/static/svg/register/register_room_footer_back_arrow.svg';
-import palette from '../../styles/palette';
-import Button from '../common/Button';
+import useValidateMode from '../../../hooks/useValidateMode';
+import BackArrowIcon from '../../../public/static/svg/register/register_room_footer_back_arrow.svg';
+import palette from '../../../styles/palette';
+import Button from '../../common/Button';
 
 const Container = styled.footer`
   position: fixed;
@@ -31,8 +31,6 @@ const Container = styled.footer`
 `;
 
 //* ------------------------------------------------------------------------------------- //
-//* ------------------------------------------------------------------------------------- //
-//* ------------------------------------------------------------------------------------- //
 
 interface IProps {
   prevHref?: string;
@@ -40,6 +38,11 @@ interface IProps {
   isValid?: boolean;
 }
 
+/**
+ * 침실 등록 화면의 Footer
+ * @param prevHref 뒤로 가기 URL
+ * @param prevHref 다음 URL
+ */
 function RegisterRoomFooter({ prevHref, nextHref, isValid = true }: IProps) {
   const { setValidateMode } = useValidateMode();
 
@@ -67,6 +70,7 @@ function RegisterRoomFooter({ prevHref, nextHref, isValid = true }: IProps) {
           뒤로
         </a>
       </Link>
+
       <Link href={nextHref || ''}>
         <a>
           <Button color="dark_cyan" onClick={onClickNext}>
