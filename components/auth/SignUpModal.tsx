@@ -388,7 +388,9 @@ export default function SignUpModal({ closeModal }: IProps) {
       </SelectorsWrapper>
 
       <ButtonWrapper>
-        <Button type="submit">가입하기</Button>
+        <Button type="submit" color="bittersweet">
+          가입하기
+        </Button>
       </ButtonWrapper>
 
       <p>

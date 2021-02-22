@@ -153,7 +153,9 @@ export default function LoginModal({ closeModal }: IProps) {
       </InputWrapper>
 
       <ButtonWrapper>
-        <Button type="submit">로그인</Button>
+        <Button type="submit" color="bittersweet">
+          로그인
+        </Button>
       </ButtonWrapper>
 
       <p>

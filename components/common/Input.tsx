@@ -10,6 +10,13 @@ type InputContainerProps = {
 };
 
 const Container = styled.div<InputContainerProps>`
+  label {
+    span {
+      display: block;
+      margin-bottom: 8px;
+    }
+  }
+
   input {
     position: relative;
     width: 100%;
@@ -71,6 +78,8 @@ const ErrorMessage = styled.p`
 `;
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label: string;
+  // eslint-disable-next-line no-undef
   icon?: JSX.Element;
   isValid?: boolean;
   useValidation?: boolean; // 검증을 할 컴포넌트인지 선택
@@ -81,6 +90,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
  * 인풋 컴포넌트
  */
 function Input({
+  label,
   icon,
   isValid = false,
   useValidation = true,
@@ -95,7 +105,14 @@ function Input({
       isValid={isValid}
       useValidation={validateMode && useValidation}
     >
-      <input {...props} />
+      {label && (
+        <label>
+          <span>{label}</span>
+          <input {...props} />
+        </label>
+      )}
+      {!label && <input {...props} />}
+
       <IconWrapper>{icon}</IconWrapper>
       {useValidation && validateMode && !isValid && errorMessage && (
         <ErrorMessage>{errorMessage}</ErrorMessage>
