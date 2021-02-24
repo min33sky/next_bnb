@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import palette from '../../../styles/palette';
@@ -9,6 +9,7 @@ import { countryList } from '../../../lib/staticData';
 import Input from '../../common/Input';
 import { registerRoomActions } from '../../../store/registerRoom';
 import { geoLocationInfoAPI } from '../../../lib/api/map';
+import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
   padding: 102px 30px 100px;
@@ -57,6 +58,9 @@ export default function RegisterRoomLocation() {
   );
   const postcode = useSelector((state) => state.registerRoom.postcode);
 
+  //* 현재 주소 불러오기 로딩
+  const [loading, setLoading] = useState(false);
+
   const dispatch = useDispatch();
 
   const onChangeCountry = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -89,30 +93,40 @@ export default function RegisterRoomLocation() {
 
   /**
    * 현재 위치 불러오기에 성공했을 때
-   * @param param0
+   * @param coords 위치 정보
    */
-  const onSuccessGetLocation = async ({ coords }) => {
-    console.log('latitude', coords.latitude);
-    console.log('longitude', coords.longitude);
-
+  const onSuccessGetLocation = async ({ coords }: { coords: any }) => {
     try {
-      const { data } = await geoLocationInfoAPI({
+      const { data: currentLocation } = await geoLocationInfoAPI({
         latitude: coords.latitude,
         longitude: coords.longitude,
       });
-
-      console.log(data);
+      console.log(currentLocation);
+      dispatch(registerRoomActions.setCountry(currentLocation.country));
+      dispatch(registerRoomActions.setCity(currentLocation.city));
+      dispatch(registerRoomActions.setDistrict(currentLocation.district));
+      dispatch(
+        registerRoomActions.setStreetAddress(currentLocation.streetAddress)
+      );
+      dispatch(registerRoomActions.setPostcode(currentLocation.postcode));
+      dispatch(registerRoomActions.setLatitude(currentLocation.latitude));
+      dispatch(registerRoomActions.setLongitude(currentLocation.longitude));
     } catch (error) {
       console.log(error);
-      alert(error?.message);
     }
+
+    setLoading(false);
   };
 
+  /**
+   * 현재 위치 불러오기
+   */
   const onClickGetCurrentLocation = () => {
+    setLoading(true);
+
     navigator.geolocation.getCurrentPosition(onSuccessGetLocation, (e) => {
       // ? 위치 검색에 실패 했을 때
       console.log(e);
-      alert(e?.message);
     });
   };
 
@@ -131,7 +145,7 @@ export default function RegisterRoomLocation() {
           icon={<NavigationIcon />}
           onClick={onClickGetCurrentLocation}
         >
-          현재 위치 사용
+          {loading ? '불러오는 중...' : '현재 위치 사용'}
         </Button>
       </div>
 
@@ -168,6 +182,11 @@ export default function RegisterRoomLocation() {
       <div className="register-room-location-postcode">
         <Input label="우편번호" value={postcode} onChange={onChangePostcode} />
       </div>
+
+      <RegisterRoomFooter
+        prevHref="/room/register/bathroom"
+        nextHref="/room/register/geometry"
+      />
     </Container>
   );
 }
