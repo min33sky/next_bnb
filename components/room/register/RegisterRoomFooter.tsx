@@ -16,7 +16,8 @@ const Container = styled.footer`
   height: 82px;
   padding: 14px 30px 20px;
   background-color: white;
-  z-index: 10;
+  /* 모달 활성화시 비활성화 */
+  /* z-index: 10; */
   border-top: 1px solid ${palette.gray_dd};
 
   .register-room-footer-back {

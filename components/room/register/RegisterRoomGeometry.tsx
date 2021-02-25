@@ -8,6 +8,7 @@ import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
   padding: 102px 30px 100px;
+
   h2 {
     font-size: 19px;
     font-weight: 800;
@@ -46,7 +47,12 @@ const Container = styled.div`
   }
 `;
 
-//* 구글 지도 script 불러오기
+/**
+ * 구글 맵 script 불러오기
+ * https://developers.google.com/maps/documentation/javascript/overview
+ * ? script를 불러오기 전까지 google api를 사용할 수 없기 때문에 Promise를 사용하여 대기
+ * ? 지도를 불렀을 때 window.initMap 함수가 호출되도록 설정
+ */
 const loadMapScript = () => {
   return new Promise<void>((resolve) => {
     const script = document.createElement('script');
@@ -65,6 +71,8 @@ declare global {
   }
 }
 
+//* ------------------------------------------------------------------------------------- //
+
 /**
  * 숙소 등록 [4단계: 구글맵을 통해 정확한 위치 설정]
  */
@@ -75,12 +83,18 @@ export default function RegisterRoomGeometry() {
 
   const dispatch = useDispatch();
 
+  /**
+   * google map script를 로드하는 함수
+   */
   const loadMap = async () => {
     await loadMapScript();
   };
 
+  /**
+   * 지도를 생성하는 함수
+   */
   window.initMap = () => {
-    //* 지도 불러오기
+    //* 지도 불러오기 (지도를 보여줄 DOM이 존재할 때)
     if (mapRef.current) {
       const map = new window.google.maps.Map(mapRef.current, {
         center: {
@@ -90,6 +104,7 @@ export default function RegisterRoomGeometry() {
         zoom: 14,
       });
 
+      // 빨간색 마커
       const marker = new window.google.maps.Marker({
         position: {
           lat: latitude || 37.5666784,
@@ -98,6 +113,7 @@ export default function RegisterRoomGeometry() {
         map,
       });
 
+      // 지도 중앙에 마커를 설정하는 이벤트 (잦은 호출을 막기위해 throttle 사용)
       map.addListener(
         'center_changed',
         throttle(() => {

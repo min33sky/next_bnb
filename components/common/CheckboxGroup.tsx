@@ -2,10 +2,11 @@ import styled from 'styled-components';
 import palette from '../../styles/palette';
 
 const Container = styled.div`
+  /* clear: both를 부여할 가짜 요소 */
   &:after {
     display: block;
     content: '';
-    clear: both;
+    clear: both; /* float한 다음에 해제를 해줘야 한다 */
   }
 
   .checkbox-label {
@@ -80,12 +81,20 @@ const Container = styled.div`
   }
 `;
 
+//* ------------------------------------------------------------------------------------- //
+
 interface IProps {
   value?: string[];
   onChange: (selected: string[]) => void;
   options?: string[];
 }
 
+/**
+ * 체크 박스
+ * @param value 체크된 값들
+ * @param onChange 체크 이벤트 함수
+ * @param options 목록
+ */
 export default function CheckboxGroup({
   value = [],
   onChange,

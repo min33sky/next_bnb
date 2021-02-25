@@ -10,6 +10,10 @@ const RegisterRoomGeometry = dynamic(
   { ssr: false }
 );
 
+/**
+ * 구글 맵을 이용해 정확한 위치 설정 페이지
+ * /room/register/geometry
+ */
 export default function geometry() {
   return <RegisterRoomGeometry />;
 }

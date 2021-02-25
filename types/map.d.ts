@@ -1,7 +1,7 @@
 declare module 'googlemaps';
 
 /**
- * 구글맵 타입
+ * 구글맵 타입 설정
  */
 
 declare global {

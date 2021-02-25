@@ -30,6 +30,9 @@ type RegisterRoomState = {
 
   // 편의 시설
   amentities: string[];
+
+  // 편의 공간
+  conveniences: string[];
 };
 
 const initialState: RegisterRoomState = {
@@ -74,6 +77,9 @@ const initialState: RegisterRoomState = {
 
   // 편의 시설
   amentities: [],
+
+  // 편의 공간
+  conveniences: [],
 };
 
 const registerRoom = createSlice({
@@ -253,6 +259,12 @@ const registerRoom = createSlice({
     // 편의 시설 변경하기
     setAmentities(state, action: PayloadAction<string[]>) {
       state.amentities = action.payload;
+      return state;
+    },
+
+    // 편의 공간 변경하기
+    setConveniences(state, action: PayloadAction<string[]>) {
+      state.conveniences = action.payload;
       return state;
     },
   },
