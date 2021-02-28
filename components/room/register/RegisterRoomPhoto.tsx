@@ -1,11 +1,14 @@
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
 import Button from '../../common/Button';
 import UploadIcon from '../../../public/static/svg/register/upload.svg';
 import { uploadFileAPI } from '../../../lib/api/file';
+import { registerRoomActions } from '../../../store/registerRoom';
+import RegisterRoomPhotoCardList from './RegisterRoomPhotoCardList';
+import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
   padding: 102px 30px 100px;
@@ -63,6 +66,8 @@ const Container = styled.div`
 export default function RegisterRoomPhoto() {
   const photos = useSelector((state) => state.registerRoom.photos);
 
+  const dispatch = useDispatch();
+
   /**
    * 이미지 업로드 하기
    */
@@ -77,7 +82,10 @@ export default function RegisterRoomPhoto() {
       const formData = new FormData();
       formData.append('file', file);
       try {
-        await uploadFileAPI(formData);
+        const { data } = await uploadFileAPI(formData);
+        if (data) {
+          dispatch(registerRoomActions.setPhotos([...photos, data]));
+        }
       } catch (error) {
         console.log(error);
       }
@@ -103,6 +111,12 @@ export default function RegisterRoomPhoto() {
           </>
         </div>
       )}
+      {!isEmpty(photos) && <RegisterRoomPhotoCardList photos={photos} />}
+
+      <RegisterRoomFooter
+        prevHref="/room/register/conveniences"
+        nextHref="/room/register/description"
+      />
     </Container>
   );
 }

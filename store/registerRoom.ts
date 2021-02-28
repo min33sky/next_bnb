@@ -85,7 +85,11 @@ const initialState: RegisterRoomState = {
   conveniences: [],
 
   // 숙소 사진
-  photos: [],
+  photos: [
+    'https://jerrynim-next-bnb.s3.ap-northeast-2.amazonaws.com/room_image_1_2x__5e286c64-83c9-4377-9967-240b6e1e4844.jpg',
+    'https://jerrynim-next-bnb.s3.ap-northeast-2.amazonaws.com/room_image_1_2x__5e286c64-83c9-4377-9967-240b6e1e4844.jpg',
+    'https://jerrynim-next-bnb.s3.ap-northeast-2.amazonaws.com/room_image_1_2x__5e286c64-83c9-4377-9967-240b6e1e4844.jpg',
+  ],
 };
 
 const registerRoom = createSlice({
