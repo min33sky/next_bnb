@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import palette from '../../../styles/palette';
 import Button from '../../common/Button';
 import UploadIcon from '../../../public/static/svg/register/upload.svg';
+import { uploadFileAPI } from '../../../lib/api/file';
 
 const Container = styled.div`
   padding: 102px 30px 100px;
@@ -38,6 +39,7 @@ const Container = styled.div`
     border: 2px dashed ${palette.gray_bb};
     border-radius: 6px;
 
+    /* 인풋버튼을 화면에서 보이지 않게 처리 */
     input {
       position: absolute;
       width: 100%;
@@ -67,6 +69,19 @@ export default function RegisterRoomPhoto() {
   const uploadImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     console.log(files);
+
+    // ? 파일 선택 취소 시 files가 비어있는 채로 이벤트가 호출되므로 길이 0 이상 조건 추가
+    if (files && files.length > 0) {
+      const file = files[0];
+      console.log(file);
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        await uploadFileAPI(formData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
