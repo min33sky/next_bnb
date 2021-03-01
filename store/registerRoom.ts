@@ -39,6 +39,9 @@ type RegisterRoomState = {
 
   // 숙소 설명
   description: string;
+
+  // 숙소 제목
+  title: string;
 };
 
 const initialState: RegisterRoomState = {
@@ -96,6 +99,9 @@ const initialState: RegisterRoomState = {
 
   // 숙소 설명
   description: '',
+
+  // 숙소 제목
+  title: '',
 };
 
 const registerRoom = createSlice({
@@ -293,6 +299,12 @@ const registerRoom = createSlice({
     // 숙소 설명 변경하기
     setDescription(state, action: PayloadAction<string>) {
       state.description = action.payload;
+      return state;
+    },
+
+    // 숙소 제목 변경하기
+    setTitle(state, action: PayloadAction<string>) {
+      state.title = action.payload;
       return state;
     },
   },
