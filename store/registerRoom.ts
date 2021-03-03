@@ -45,6 +45,10 @@ type RegisterRoomState = {
 
   // 숙소 요금
   price: number;
+
+  // 예약 시작 날짜
+  startDate: string | null;
+  endDate: string | null;
 };
 
 const initialState: RegisterRoomState = {
@@ -108,6 +112,12 @@ const initialState: RegisterRoomState = {
 
   // 숙소 요금
   price: 0,
+
+  // 예약 시작 날짜
+  startDate: null,
+
+  // 예약 종료 날짜
+  endDate: null,
 };
 
 const registerRoom = createSlice({
@@ -317,6 +327,18 @@ const registerRoom = createSlice({
     // 숙소 요금 변경하기
     setPrice(state, action: PayloadAction<number>) {
       state.price = action.payload;
+      return state;
+    },
+
+    // 예약 시작 날짜 변경하기
+    setStartDate(state, action: PayloadAction<string | null>) {
+      state.startDate = action.payload;
+      return state;
+    },
+
+    // 예약 종료 날짜 변경하기
+    setEndDate(state, action: PayloadAction<string | null>) {
+      state.endDate = action.payload;
       return state;
     },
   },
