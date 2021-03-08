@@ -3,6 +3,8 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import RegisterRoomCheckStep from './RegisterRoomCheckStep';
+import RegisterRoomFooter from './RegisterRoomFooter';
+import RegisterRoomSubmitFooter from './RegisterRoomSubmitFooter';
 
 const Container = styled.div`
   padding: 102px 30px 100px;
@@ -176,6 +178,9 @@ export default function RegisterRoomChecklist() {
     return true;
   }, [isPriceActived, registerRoom]);
 
+  /**
+   * 현재 진행중인 단계
+   */
   const stepInProgress = useMemo(() => {
     if (!isBuildingTypeActived) {
       return 'building';
@@ -298,6 +303,14 @@ export default function RegisterRoomChecklist() {
           inProgress={stepInProgress === 'date'}
         />
       </ul>
+
+      {isDateActived && <RegisterRoomSubmitFooter />}
+      {!isDateActived && (
+        <RegisterRoomFooter
+          prevHref="/room/register/date"
+          nextHref={`/room/register/${stepInProgress}`}
+        />
+      )}
     </Container>
   );
 }

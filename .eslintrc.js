@@ -52,6 +52,8 @@ module.exports = {
     'no-param-reassign': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'react/no-array-index-key': 'off',
+    // _로 시작하는 변수는 사용하지 않아도 경고 표시가 뜨지 않는다.
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     // 리액트 Hooks 관련
     'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
     'react-hooks/exhaustive-deps': 'warn', // Checks effect dependencies

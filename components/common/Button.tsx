@@ -3,9 +3,10 @@ import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
 
 /**
- * 버튼 색상을 정하는 함수
+ * 버튼 색상 구하기
  * @param color 버튼 색상
- * @param colorReverse 색상 리버스
+ * @param colorReverse 색상 반전
+ * @returns 버튼 색상 css
  */
 const getButtonColor = (color: string, colorReverse: boolean) => {
   if (colorReverse) {
@@ -48,9 +49,32 @@ const getButtonColor = (color: string, colorReverse: boolean) => {
   }
 };
 
+/**
+ * 버튼의 크기 구하기
+ * @param size 버튼 사이즈
+ * @returns 버튼 크기 css
+ */
+const getButtonSize = (size: 'small' | 'medium') => {
+  switch (size) {
+    case 'medium':
+      return css`
+        height: 48px;
+      `;
+
+    case 'small':
+      return css`
+        font-size: 14px;
+        height: 36px;
+      `;
+    default:
+      return '';
+  }
+};
+
 interface StyledButtonProps {
   width: string | undefined;
   colorReverse: boolean;
+  size: 'small' | 'medium';
 }
 
 const Container = styled.button<StyledButtonProps>`
@@ -67,7 +91,9 @@ const Container = styled.button<StyledButtonProps>`
   outline: none;
   cursor: pointer;
   width: ${(props) => props.width};
+
   ${(props) => getButtonColor(props.color || '', props.colorReverse)}
+  ${(props) => getButtonSize(props.size)}
 
   svg {
     margin-right: 12px;
@@ -83,6 +109,7 @@ interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   colorReverse?: boolean;
   // eslint-disable-next-line no-undef
   icon?: JSX.Element;
+  size?: 'small' | 'medium';
 }
 
 /**
@@ -92,6 +119,7 @@ interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
  * @param width 버튼 너비
  * @param colorReverse 버튼 색상 반전
  * @param icon 버튼 아이콘
+ * @param size 버튼 크기
  */
 function Button({
   children,
@@ -99,6 +127,7 @@ function Button({
   width,
   colorReverse = false,
   icon,
+  size = 'medium',
   ...props
 }: IProps) {
   return (
@@ -107,6 +136,7 @@ function Button({
       color={color}
       width={width}
       colorReverse={colorReverse}
+      size={size}
     >
       {icon}
       {children}

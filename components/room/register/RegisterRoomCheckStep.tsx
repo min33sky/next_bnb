@@ -44,6 +44,14 @@ interface IProps {
   step: string;
   href: string;
 }
+
+/**
+ * 체크 리스트에서 진행중인 단계를 나타내는 컴포넌트
+ * @param diabled
+ * @param inProgress
+ * @param step
+ * @param href
+ */
 export default function RegisterRoomCheckStep({
   disabled,
   inProgress,
@@ -58,9 +66,12 @@ export default function RegisterRoomCheckStep({
             <span>{step}</span>
           </a>
         </Link>
+
         <Link href={href}>
           <a href="" className="register-room-check-step-continue-button">
-            <Button color="dark_cyan">계속</Button>
+            <Button color="dark_cyan" size="small">
+              계속
+            </Button>
           </a>
         </Link>
       </Container>
