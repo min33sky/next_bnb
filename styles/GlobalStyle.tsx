@@ -21,7 +21,7 @@ const globalStyle = css`
 `;
 
 /**
- * App의 공통 스타일 설정
+ * App의 글로벌 스타일 설정
  */
 const GlobalStyle = createGlobalStyle`
   ${globalStyle}

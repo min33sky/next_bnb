@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Data from '../../../lib/data';
-import { StoredUserType } from '../../../types/user';
+import { StoredUserType } from '../../../typings/user';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {

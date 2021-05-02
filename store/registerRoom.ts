@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BedType } from '../types/room.d';
+import { BedType } from '../typings/room';
 
 type RegisterRoomState = {
   largeBuildingType: string | null;

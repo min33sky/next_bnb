@@ -7,6 +7,6 @@ const Container = styled.div`
   font-style: italic;
 `;
 
-export default function index() {
+export default function StartPage() {
   return <Container>Hello World</Container>;
 }

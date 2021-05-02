@@ -1,4 +1,4 @@
-import { UserType } from './user.d';
+import { UserType } from './user';
 import { BedType } from './room';
 
 //* 유저 Redux state (서버에서 응답한 유저 객체 타입에 로그인 여부를 추가시킴)

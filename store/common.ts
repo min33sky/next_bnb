@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CommonState } from '../types/reduxState.d';
+import { CommonState } from '../typings/reduxState';
 
 const initialState: CommonState = {
   validateMode: false,

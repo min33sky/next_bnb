@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { StoredUserType } from '../../types/user';
+import { StoredUserType } from '../../typings/user';
 
 /**
  * 전체 유저 리스트를 DB에서 불러오는 함수
