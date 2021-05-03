@@ -49,7 +49,7 @@ const useModal = () => {
   /**
    * 모달 포탈
    * @param param0 Modal Component
-   * @returns Modal
+   * @returns {openModal, closeModal, Modal}
    */
   function ModalPortal({ children }: IProps) {
     const ref = useRef<Element | null>(); // 모달을 보여줄 DOM의 ref

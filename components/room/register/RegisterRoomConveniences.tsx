@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { convinienceList } from '../../../lib/staticData';
 import { registerRoomActions } from '../../../store/registerRoom';
 import palette from '../../../styles/palette';
-import CheckboxGroup from '../../common/CheckboxGroup';
+import CheckboxGroup from '../../Common/CheckboxGroup';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`

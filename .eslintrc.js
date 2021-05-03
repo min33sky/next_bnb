@@ -3,6 +3,9 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+  globals: {
+    JSX: true, // ? JSX.Element 경고 제거
+  },
   extends: [
     'plugin:react/recommended',
     'airbnb',

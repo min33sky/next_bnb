@@ -5,9 +5,9 @@ import { bedTypes } from '../../../lib/staticData';
 import { registerRoomActions } from '../../../store/registerRoom';
 import palette from '../../../styles/palette';
 import { BedType } from '../../../typings/room';
-import Button from '../../common/Button';
-import Counter from '../../common/Counter';
-import Selector from '../../common/Selector';
+import Button from '../../Common/Button';
+import Counter from '../../Common/Counter';
+import Selector from '../../Common/Selector';
 
 const Container = styled.li`
   width: 100%;

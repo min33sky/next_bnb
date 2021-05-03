@@ -67,7 +67,7 @@ const HeaderUsermenu = styled.ul`
 /**
  * 로그인 시 헤더에 보여줄 메뉴
  */
-export default function UserProfileButtons() {
+export default function UserProfileMenu() {
   const dispatch = useDispatch();
   const userProfileImage = useSelector((state) => state.user.profileImage);
 

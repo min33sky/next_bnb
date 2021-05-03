@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { registerRoomActions } from '../../../store/registerRoom';
 import palette from '../../../styles/palette';
-import DatePicker from '../../common/DatePicker';
+import DatePicker from '../../Common/DatePicker';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`

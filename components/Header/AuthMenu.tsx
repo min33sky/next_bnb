@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import useModal from 'hooks/useModal';
 import { authActions } from 'store/auth';
-import AuthModal from 'components/auth/AuthModal';
+import AuthModal from 'components/Auth/AuthModal';
 import { LoginButton, SignupButton } from './styles/authMenu';
 
 /**

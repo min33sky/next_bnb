@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import AirbnbLogoIcon from '../../public/static/svg/logo/logo.svg';
 import AirbnbLogoTextIcon from '../../public/static/svg/logo/logo_text.svg';
 import { Container } from './styles/header';
-import AuthButtons from './AuthButtons';
-import UserProfileButtons from './UserProfileButtons';
+import AuthMenu from './AuthMenu';
+import UserProfileMenu from './UserProfileMenu';
 
 /**
  * App Common Header
@@ -25,12 +25,12 @@ export default function Header() {
 
       {
         //* 비로그인 시 보여줄 메뉴
-        !isLogged && <AuthButtons />
+        !isLogged && <AuthMenu />
       }
 
       {
         //* 로그인 시 보여줄 메뉴 버튼과 관련 메뉴
-        isLogged && <UserProfileButtons />
+        isLogged && <UserProfileMenu />
       }
     </Container>
   );
