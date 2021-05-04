@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
-import Button from '../../common/Button';
+import Button from '../../Common/Button';
 import UploadIcon from '../../../public/static/svg/register/upload.svg';
 import { uploadFileAPI } from '../../../lib/api/file';
 import { registerRoomActions } from '../../../store/registerRoom';

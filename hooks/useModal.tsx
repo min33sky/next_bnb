@@ -11,6 +11,7 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 11; //? Header의 z-index는 10이므로 헤더 위에 출력된다.
 `;
 
 const ModalBackground = styled.div`
@@ -18,19 +19,25 @@ const ModalBackground = styled.div`
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.75);
-  z-index: 10;
 `;
 
 /**
- * Modal Hook
+ * 모달을 관리하는 훅
+ * @returns Modal Hook
  */
 const useModal = () => {
   const [modalOpened, setModalOpened] = useState(false);
 
+  /**
+   * Open modal handler
+   */
   const openModal = () => {
     setModalOpened(true);
   };
 
+  /**
+   * Close modal handler
+   */
   const closeModal = () => {
     setModalOpened(false);
   };
@@ -40,14 +47,18 @@ const useModal = () => {
   }
 
   /**
-   * 모달을 보여줄 포탈 컴포넌트
-   * @param children 화면에 보여줄 모달 컴포넌트
+   * 모달 포탈
+   * @param param0 Modal Component
+   * @returns {openModal, closeModal, Modal}
    */
   function ModalPortal({ children }: IProps) {
-    const ref = useRef<Element | null>(); // 모달을 띄울 DOM의 ref
+    const ref = useRef<Element | null>(); // 모달을 보여줄 DOM의 ref
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+      /**
+       * 컴포넌트가 마운트 됐을 때 모달을 보여줄 DOM의 ref를 설정
+       */
       setMounted(true);
       if (document) {
         const dom = document.querySelector('#root-modal');
@@ -55,7 +66,6 @@ const useModal = () => {
       }
     }, []);
 
-    // ? ref가 dom을 가리키고 포탈 컴포넌트가 마운트 그리고 모달의 상태가 오픈이 되면 모달을 표시
     if (ref.current && mounted && modalOpened) {
       return createPortal(
         <Container>

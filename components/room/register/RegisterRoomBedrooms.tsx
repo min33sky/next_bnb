@@ -5,8 +5,8 @@ import { bedroomCountList } from '../../../lib/staticData';
 import { getNumber } from '../../../lib/utils';
 import { registerRoomActions } from '../../../store/registerRoom';
 import palette from '../../../styles/palette';
-import Counter from '../../common/Counter';
-import Selector from '../../common/Selector';
+import Counter from '../../Common/Counter';
+import Selector from '../../Common/Selector';
 import RegisterRoomBedList from './RegisterRoomBedList';
 import RegisterRoomFooter from './RegisterRoomFooter';
 

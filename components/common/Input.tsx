@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import palette from '../../styles/palette';
+import palette from 'styles/palette';
 
 type InputContainerProps = {
   iconExist: boolean;
@@ -26,12 +26,13 @@ const Container = styled.div<InputContainerProps>`
     border-radius: 4px;
     font-size: 16px;
     outline: none;
+
     ::placeholder {
       color: ${palette.gray_76};
     }
 
-    &:focus {
-      border-color: ${palette.dark_cyan};
+    & :focus {
+      border-color: ${palette.dark_cyan} !important;
     }
   }
 
@@ -61,7 +62,7 @@ const Container = styled.div<InputContainerProps>`
     `}
 `;
 
-const IconWrapper = styled.div`
+const InputIconWrapper = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
@@ -78,8 +79,7 @@ const ErrorMessage = styled.p`
 `;
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-  // eslint-disable-next-line no-undef
+  label?: string;
   icon?: JSX.Element;
   isValid?: boolean;
   useValidation?: boolean; // 검증을 할 컴포넌트인지 선택
@@ -87,7 +87,9 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 /**
- * 인풋 컴포넌트
+ * Input Component
+ * @param param0
+ * @returns Input Component
  */
 function Input({
   label,
@@ -113,7 +115,8 @@ function Input({
       )}
       {!label && <input {...props} />}
 
-      <IconWrapper>{icon}</IconWrapper>
+      <InputIconWrapper>{icon}</InputIconWrapper>
+
       {useValidation && validateMode && !isValid && errorMessage && (
         <ErrorMessage>{errorMessage}</ErrorMessage>
       )}

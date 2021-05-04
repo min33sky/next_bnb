@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash/isEmpty';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { StoredRoomType } from '../../../types/room.d';
+import { StoredRoomType } from '../../../typings/room';
 import Data from '../../../lib/data';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

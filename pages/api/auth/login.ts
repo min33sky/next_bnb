@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Data from '../../../lib/data';
-import { StoredUserType } from '../../../types/user';
+import { StoredUserType } from '../../../typings/user';
 
 /**
  * 로그인 API

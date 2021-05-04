@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { registerRoomActions } from '../../../store/registerRoom';
 import palette from '../../../styles/palette';
-import Textarea from '../../common/Textarea';
+import Textarea from '../../Common/Textarea';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`

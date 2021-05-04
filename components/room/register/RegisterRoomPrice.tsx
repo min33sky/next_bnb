@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { makeMoneyString } from '../../../lib/utils';
 import { registerRoomActions } from '../../../store/registerRoom';
 import palette from '../../../styles/palette';
-import Input from '../../common/Input';
+import Input from '../../Common/Input';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`

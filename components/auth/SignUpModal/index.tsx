@@ -1,21 +1,26 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import PersonIcon from '../../public/static/svg/auth/person.svg';
-import OpenedEyeIcon from '../../public/static/svg/auth/opened_eye.svg';
-import ClosedEyeIcon from '../../public/static/svg/auth/closed_eye.svg';
-import MailIcon from '../../public/static/svg/auth/mail.svg';
-import CloseXIcon from '../../public/static/svg/modal/modal_colose_x_icon.svg';
-import Input from '../common/Input';
-import Selector from '../common/Selector';
-import { dayList, monthList, yearList } from '../../lib/staticData';
-import palette from '../../styles/palette';
-import Button from '../common/Button';
-import { signupAPI } from '../../lib/api/auth';
-import { userActions } from '../../store/user';
-import useValidateMode from '../../hooks/useValidateMode';
-import PasswordWarning from './PasswordWarning';
-import { authActions } from '../../store/auth';
+import { userActions } from 'store/user';
+import { authActions } from 'store/auth';
+import Input from 'components/Common/Input';
+import useInput from 'hooks/useInput';
+import PersonIcon from '../../../public/static/svg/auth/person.svg';
+import OpenedEyeIcon from '../../../public/static/svg/auth/opened_eye.svg';
+import ClosedEyeIcon from '../../../public/static/svg/auth/closed_eye.svg';
+import MailIcon from '../../../public/static/svg/auth/mail.svg';
+import CloseXIcon from '../../../public/static/svg/modal/modal_colose_x_icon.svg';
+import Selector from '../../Common/Selector';
+import { dayList, monthList, yearList } from '../../../lib/staticData';
+import Button from '../../Common/Button';
+import { signupAPI } from '../../../lib/api/auth';
+import useValidateMode from '../../../hooks/useValidateMode';
+import {
+  ButtonWrapper,
+  Container,
+  InputWrapper,
+  SelectorsWrapper,
+} from './styles/signUpModal';
+import PasswordWarning from '../PasswordWarning';
 
 //* 비밀번호 최소 자릿수
 const PASSWORD_MIN_LENGTH = 8;
@@ -29,88 +34,6 @@ const disabledDays = ['일'];
 //* 선택할 수 없는 년 options
 const disabledYears = ['년'];
 
-const Container = styled.form`
-  width: 568px;
-  padding: 32px;
-  background-color: white;
-  z-index: 11;
-
-  .modal-close-x-icon {
-    cursor: pointer;
-    display: block;
-    margin: 0 0 40px auto;
-  }
-
-  .sign-up-birthday-label {
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 16px;
-    margin-bottom: 8px;
-  }
-
-  .sign-up-modal-birthday-info {
-    margin-bottom: 16px;
-    color: ${palette.charcoal};
-  }
-
-  .sign-up-modal-set-login {
-    color: ${palette.dark_cyan};
-    margin-left: 8px;
-    cursor: pointer;
-
-    :hover {
-      color: ${palette.orange};
-    }
-  }
-`;
-
-const InputWrapper = styled.div`
-  position: relative;
-  margin-bottom: 16px;
-
-  svg {
-    position: absolute;
-    right: 11px;
-    top: 16px;
-  }
-
-  &.sign-up-password-input-wrapper {
-    svg {
-      cursor: pointer;
-    }
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid ${palette.gray_eb};
-`;
-
-const SelectorsWrapper = styled.div`
-  display: flex;
-  margin-bottom: 24px;
-
-  /* 월 */
-  & > :first-child {
-    margin-right: 16px;
-    flex-grow: 1;
-  }
-
-  /* 일 */
-  & > :nth-child(2) {
-    margin-right: 16px;
-    width: 25%;
-  }
-
-  /* 년도 */
-  & > :last-child {
-    width: 33.3%;
-  }
-`;
-
-//* ------------------------------------------------------------------------------------- //
-
 interface IProps {
   closeModal: () => void;
 }
@@ -120,19 +43,24 @@ interface IProps {
  * @param closeModal 모달 닫기 함수
  */
 export default function SignUpModal({ closeModal }: IProps) {
-  const [email, setEmail] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const [email, onChangeEmail] = useInput('');
+  const [lastname, onChangeLastname] = useInput('');
+  const [firstname, onChangeFirstname] = useInput('');
+
+  const [password, onChangePassword] = useInput('');
   const [hidePassword, setHidePassword] = useState(true);
 
-  const [birthYear, setBirthYear] = useState<string | undefined>();
-  const [birthDay, setBirthDay] = useState<string | undefined>();
-  const [birthMonth, setBirthMonth] = useState<string | undefined>();
+  const [birthYear, onChangeBirthYear] = useInput<string | undefined>(
+    undefined
+  );
+  const [birthDay, onChangeBirthDay] = useInput<string | undefined>(undefined);
+  const [birthMonth, onChangeBirthMonth] = useInput<string | undefined>(
+    undefined
+  );
 
   const [passwordFocused, setPasswordFocused] = useState(false);
-
-  const dispatch = useDispatch();
 
   const { setValidateMode } = useValidateMode();
 
@@ -143,31 +71,13 @@ export default function SignUpModal({ closeModal }: IProps) {
     };
   }, [setValidateMode]);
 
-  const onChangeBirthMonth = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setBirthMonth(event.target.value);
-  };
-  const onChangeBirthDay = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setBirthDay(event.target.value);
-  };
-  const onChangeBirthYear = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setBirthYear(event.target.value);
-  };
-
-  const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-  const onChangeLastname = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLastname(event.target.value);
-  };
-  const onChangeFirstname = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstname(event.target.value);
-  };
-  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
+  /**
+   * 패스워드 보이기 여부 핸들러
+   */
   const toggleHidePassword = () => {
     setHidePassword(!hidePassword);
   };
+
   const changeToLoginModal = () => {
     dispatch(authActions.setAuthMode('login'));
   };

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactAutosizeTextarea from 'react-autosize-textarea';
 import styled from 'styled-components';
-import palette from '../../styles/palette';
+import palette from 'styles/palette';
 
 const StyledTextarea = styled(ReactAutosizeTextarea)`
   position: relative;

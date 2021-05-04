@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/dist/client/router';
 import palette from '../../../styles/palette';
 import BackArrowIcon from '../../../public/static/svg/register/register_room_footer_back_arrow.svg';
-import Button from '../../common/Button';
+import Button from '../../Common/Button';
 import { registerRoomAPI } from '../../../lib/api/room';
 
 const Container = styled.footer`

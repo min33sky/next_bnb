@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import HamburgerIcon from '../public/static/svg/header/hamburger.svg';
-import palette from '../styles/palette';
-import { logoutAPI } from '../lib/api/auth';
-import { userActions } from '../store/user';
+import HamburgerIcon from '../../public/static/svg/header/hamburger.svg';
+import palette from '../../styles/palette';
+import { logoutAPI } from '../../lib/api/auth';
+import { userActions } from '../../store/user';
 
 const ProfileButton = styled.button`
   display: flex;
@@ -67,7 +67,7 @@ const HeaderUsermenu = styled.ul`
 /**
  * 로그인 시 헤더에 보여줄 메뉴
  */
-export default function HeaderUserProfile() {
+export default function UserProfileMenu() {
   const dispatch = useDispatch();
   const userProfileImage = useSelector((state) => state.user.profileImage);
 

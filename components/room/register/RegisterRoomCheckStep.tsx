@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import palette from '../../../styles/palette';
-import Button from '../../common/Button';
+import Button from '../../Common/Button';
 import CheckMarkIcon from '../../../public/static/svg/common/checkbox/checkbox_mark.svg';
 
 const Container = styled.li`

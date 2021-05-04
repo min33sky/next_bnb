@@ -1,4 +1,4 @@
-import { UserType } from '../../types/user.d';
+import { UserType } from '../../typings/user';
 import axios from '.';
 
 export interface SignUpAPIBody {

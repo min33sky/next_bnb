@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { StoredRoomType } from '../../types/room';
+import { StoredRoomType } from '../../typings/room';
 /**
  * 숙소 리스트 데이터 불러오기
  */

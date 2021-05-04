@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import CloseXIcon from '../../public/static/svg/modal/modal_colose_x_icon.svg';
-import MailICon from '../../public/static/svg/auth/mail.svg';
-import ClosedEyeIcon from '../../public/static/svg/auth/closed_eye.svg';
+import palette from 'styles/palette';
+import useValidateMode from 'hooks/useValidateMode';
+import { authActions } from 'store/auth';
+import { loginAPI } from 'lib/api/auth';
+import { userActions } from 'store/user';
+import Button from 'components/Common/Button';
+import Input from 'components/Common/Input';
 import OpenedEyeIcon from '../../public/static/svg/auth/opened_eye.svg';
-import Input from '../common/Input';
-import palette from '../../styles/palette';
-import Button from '../common/Button';
-import { authActions } from '../../store/auth';
-import { loginAPI } from '../../lib/api/auth';
-import useValidateMode from '../../hooks/useValidateMode';
-import { userActions } from '../../store/user';
+import ClosedEyeIcon from '../../public/static/svg/auth/closed_eye.svg';
+import MailICon from '../../public/static/svg/auth/mail.svg';
+import CloseXIcon from '../../public/static/svg/modal/modal_colose_x_icon.svg';
 
 const Container = styled.form`
   width: 568px;
