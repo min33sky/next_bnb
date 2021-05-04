@@ -58,9 +58,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.setHeader('Set-Cookie', setToken);
 
     // 보안 위배 정보를 제외하고 클라이언트에 전달하기
-    const newUserWithoutPassword: Partial<
-      Pick<StoredUserType, 'password'>
-    > = newUser; // optional 프로퍼티로 변경
+    const newUserWithoutPassword: Partial<Pick<StoredUserType, 'password'>> = newUser; // optional 프로퍼티로 변경
 
     delete newUserWithoutPassword.password;
 

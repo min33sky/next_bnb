@@ -1,8 +1,8 @@
+import useValidateMode from 'hooks/useValidateMode';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import useValidateMode from '../../hooks/useValidateMode';
-import palette from '../../styles/palette';
+import palette from 'styles/palette';
 import WarningIcon from '../../public/static/svg/common/warning.svg';
 
 /**
@@ -152,13 +152,13 @@ function Selector({
   disabledOptions = [],
   ...props // ? ex) onChange, ...
 }: IProps) {
-  // 스토어에서 검증 모드인지 체크
+  // ? 스토어에서 검증 모드인지 체크
   const validateMode = useSelector((state) => state.common.validateMode);
 
   return (
     <Container
       isValid={!!isValid}
-      validateMode={useValidateMode && validateMode}
+      validateMode={useValidateMode() && validateMode}
       type={type}
     >
       <label>

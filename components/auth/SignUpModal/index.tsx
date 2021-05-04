@@ -4,35 +4,28 @@ import { userActions } from 'store/user';
 import { authActions } from 'store/auth';
 import Input from 'components/Common/Input';
 import useInput from 'hooks/useInput';
+import useValidateMode from 'hooks/useValidateMode';
+import { signupAPI } from 'lib/api/auth';
+import Selector from 'components/Common/Selector';
+import Button from 'components/Common/Button';
+import { monthList, dayList, yearList } from 'lib/staticData';
 import PersonIcon from '../../../public/static/svg/auth/person.svg';
 import OpenedEyeIcon from '../../../public/static/svg/auth/opened_eye.svg';
 import ClosedEyeIcon from '../../../public/static/svg/auth/closed_eye.svg';
 import MailIcon from '../../../public/static/svg/auth/mail.svg';
 import CloseXIcon from '../../../public/static/svg/modal/modal_colose_x_icon.svg';
-import Selector from '../../Common/Selector';
-import { dayList, monthList, yearList } from '../../../lib/staticData';
-import Button from '../../Common/Button';
-import { signupAPI } from '../../../lib/api/auth';
-import useValidateMode from '../../../hooks/useValidateMode';
 import {
-  ButtonWrapper,
+  BirthdaySelectorsWrapper,
   Container,
   InputWrapper,
-  SelectorsWrapper,
+  SubmitButtonWrapper,
 } from './styles/signUpModal';
 import PasswordWarning from '../PasswordWarning';
 
-//* 비밀번호 최소 자릿수
-const PASSWORD_MIN_LENGTH = 8;
-
-//* 선택할 수 없는 월 options
-const disabledMonths = ['월'];
-
-//* 선택할 수 없는 일 options
-const disabledDays = ['일'];
-
-//* 선택할 수 없는 년 options
-const disabledYears = ['년'];
+const PASSWORD_MIN_LENGTH = 8; //* 비밀번호 최소 자릿수
+const disabledMonths = ['월']; //* 선택할 수 없는 월 options
+const disabledDays = ['일']; //* 선택할 수 없는 일 options
+const disabledYears = ['년']; //* 선택할 수 없는 년 options
 
 interface IProps {
   closeModal: () => void;
@@ -52,13 +45,9 @@ export default function SignUpModal({ closeModal }: IProps) {
   const [password, onChangePassword] = useInput('');
   const [hidePassword, setHidePassword] = useState(true);
 
-  const [birthYear, onChangeBirthYear] = useInput<string | undefined>(
-    undefined
-  );
+  const [birthYear, onChangeBirthYear] = useInput<string | undefined>(undefined);
   const [birthDay, onChangeBirthDay] = useInput<string | undefined>(undefined);
-  const [birthMonth, onChangeBirthMonth] = useInput<string | undefined>(
-    undefined
-  );
+  const [birthMonth, onChangeBirthMonth] = useInput<string | undefined>(undefined);
 
   const [passwordFocused, setPasswordFocused] = useState(false);
 
@@ -106,9 +95,7 @@ export default function SignUpModal({ closeModal }: IProps) {
    * 비밀번호가 숫자나 특수기호를 포함하는지
    */
   const isPasswordHasNumberOrSymbol = useMemo(
-    () =>
-      /[{}[\]/?.,;:|)*~1!^\-_+<>@#$%^&\\=('"]/g.test(password) ||
-      /[0-9]/g.test(password),
+    () => /[{}[\]/?.,;:|)*~1!^\-_+<>@#$%^&\\=('"]/g.test(password) || /[0-9]/g.test(password),
     [password]
   );
 
@@ -120,11 +107,7 @@ export default function SignUpModal({ closeModal }: IProps) {
     if (!email || !lastname || !firstname || !password) return false;
 
     // 비밀번호가 올바르지 않다면
-    if (
-      isPasswordHasNameOrEmail ||
-      !isPasswordOverMinLength ||
-      !isPasswordHasNumberOrSymbol
-    )
+    if (isPasswordHasNameOrEmail || !isPasswordOverMinLength || !isPasswordHasNumberOrSymbol)
       return false;
 
     // 생년월일 셀렉터 값이 없다면
@@ -150,10 +133,10 @@ export default function SignUpModal({ closeModal }: IProps) {
           firstname,
           password,
           birthday: new Date(
-            `${birthYear!.replace('년', '')}-${birthMonth!.replace(
-              '월',
+            `${birthYear!.replace('년', '')}-${birthMonth!.replace('월', '')}-${birthDay!.replace(
+              '일',
               ''
-            )}-${birthDay!.replace('일', '')}`
+            )}`
           ).toISOString(),
         };
 
@@ -232,9 +215,7 @@ export default function SignUpModal({ closeModal }: IProps) {
           onChange={onChangePassword}
           useValidation
           isValid={
-            !isPasswordHasNameOrEmail &&
-            isPasswordOverMinLength &&
-            isPasswordHasNumberOrSymbol
+            !isPasswordHasNameOrEmail && isPasswordOverMinLength && isPasswordHasNumberOrSymbol
           }
           errorMessage="비밀번호를 입력하세요."
           onFocus={onFocusPassword}
@@ -247,24 +228,18 @@ export default function SignUpModal({ closeModal }: IProps) {
             isValid={!isPasswordHasNameOrEmail}
             text="비밀번호에 본인 이름이나 이메일 주소를 포함할 수 없습니다."
           />
-          <PasswordWarning
-            isValid={isPasswordOverMinLength}
-            text="최소 8자리를 입력하세요."
-          />
-          <PasswordWarning
-            isValid={isPasswordHasNumberOrSymbol}
-            text="숫자나 기호를 포함하세요"
-          />
+          <PasswordWarning isValid={isPasswordOverMinLength} text="최소 8자리를 입력하세요." />
+          <PasswordWarning isValid={isPasswordHasNumberOrSymbol} text="숫자나 기호를 포함하세요" />
         </>
       )}
 
       <p className="sign-up-birthday-label">생일</p>
       <p className="sign-up-modal-birthday-info">
-        만 18세 이상의 성인만 회원으로 가입할 수 있습니다. 생일은 다른
-        에어비앤비 이용자에게 공개되지 않습니다.
+        만 18세 이상의 성인만 회원으로 가입할 수 있습니다. 생일은 다른 에어비앤비 이용자에게
+        공개되지 않습니다.
       </p>
 
-      <SelectorsWrapper>
+      <BirthdaySelectorsWrapper>
         <div className="month">
           <Selector
             options={monthList}
@@ -295,21 +270,17 @@ export default function SignUpModal({ closeModal }: IProps) {
             isValid={!!birthYear}
           />
         </div>
-      </SelectorsWrapper>
+      </BirthdaySelectorsWrapper>
 
-      <ButtonWrapper>
+      <SubmitButtonWrapper>
         <Button type="submit" color="bittersweet">
           가입하기
         </Button>
-      </ButtonWrapper>
+      </SubmitButtonWrapper>
 
       <p>
         이미 에어비앤비 계정이 있나요?
-        <span
-          className="sign-up-modal-set-login"
-          role="presentation"
-          onClick={changeToLoginModal}
-        >
+        <span className="sign-up-modal-set-login" role="presentation" onClick={changeToLoginModal}>
           로그인
         </span>
       </p>

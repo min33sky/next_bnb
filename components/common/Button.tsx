@@ -86,8 +86,8 @@ const Container = styled.button<StyledButtonProps>`
   padding: 0 15px;
   border: 0;
   border-radius: 4px;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 800;
   outline: none;
   cursor: pointer;
   width: ${(props) => props.width};
@@ -131,13 +131,7 @@ function Button({
   ...props
 }: IProps) {
   return (
-    <Container
-      {...props}
-      color={color}
-      width={width}
-      colorReverse={colorReverse}
-      size={size}
-    >
+    <Container {...props} color={color} width={width} colorReverse={colorReverse} size={size}>
       {icon}
       {children}
     </Container>

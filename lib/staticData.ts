@@ -2,7 +2,7 @@
  *? 정적 데이터를 모아두는 파일
  */
 
-import { BedType } from '../typings/room';
+import { BedType } from 'typings/room';
 
 //* 1월부터 12월까지
 export const monthList = [
@@ -23,20 +23,13 @@ export const monthList = [
 //* 1부터 31까지
 export const dayList = Array.from(Array(31), (_, i) => String(`${i + 1}일`));
 
-//* 올해부터 100년전까지
-export const yearList = Array.from(Array(121), (_, i) =>
+//* 올해부터 1900년전까지
+export const yearList = Array.from(Array(122), (_, i) =>
   String(`${new Date().getFullYear() - i}년`)
 );
 
 //* 숙소 큰 범위의 건물 유형
-export const largeBuildingTypeList = [
-  '아파트',
-  '주택',
-  '별채',
-  '독특한 숙소',
-  'B&B',
-  '부티크호텔',
-];
+export const largeBuildingTypeList = ['아파트', '주택', '별채', '독특한 숙소', 'B&B', '부티크호텔'];
 
 //* 아파트 건물 유형
 export const apartmentBuildingTypeList = [
@@ -75,11 +68,7 @@ export const houstBuildingTypeList = [
 ];
 
 //* 별채 건물 유형
-export const secondaryUnitBuildingTypeList = [
-  '게스트용 별채',
-  '게스트 스위트',
-  '농장 체험 숙박',
-];
+export const secondaryUnitBuildingTypeList = ['게스트용 별채', '게스트 스위트', '농장 체험 숙박'];
 
 //* 독특한숙소 건물 유형
 export const uniqueSpaceBuildingTypeList = [
@@ -415,11 +404,4 @@ export const amentityList = [
 ];
 
 //* 편의 공간
-export const convinienceList = [
-  '주방',
-  '세탁 공간 - 세탁기',
-  '주차',
-  '헬스장',
-  '수영장',
-  '자쿠지',
-];
+export const convinienceList = ['주방', '세탁 공간 - 세탁기', '주차', '헬스장', '수영장', '자쿠지'];

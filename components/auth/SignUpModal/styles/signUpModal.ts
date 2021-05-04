@@ -3,7 +3,7 @@ import palette from 'styles/palette';
 
 export const Container = styled.form`
   width: 568px;
-  height: 614px;
+  min-height: 614px;
   padding: 32px;
   background-color: white;
   z-index: 11;
@@ -55,30 +55,30 @@ export const InputWrapper = styled.div`
   }
 `;
 
-export const ButtonWrapper = styled.div`
+export const SubmitButtonWrapper = styled.div`
   margin-bottom: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid ${palette.gray_eb};
 `;
 
-export const SelectorsWrapper = styled.div`
+export const BirthdaySelectorsWrapper = styled.div`
   display: flex;
   margin-bottom: 24px;
 
   /* 월 */
-  & > :first-child {
+  > :first-child {
     margin-right: 16px;
     flex-grow: 1;
   }
 
   /* 일 */
-  & > :nth-child(2) {
+  > :nth-child(2) {
     margin-right: 16px;
     width: 25%;
   }
 
   /* 년도 */
-  & > :last-child {
+  > :last-child {
     width: 33.3%;
   }
 `;
