@@ -1,8 +1,9 @@
 import { readFileSync, writeFileSync } from 'fs';
-import { StoredUserType } from '../../typings/user';
+import { StoredUserType } from 'typings/user';
 
 /**
  * 전체 유저 리스트를 DB에서 불러오는 함수
+ * @returns All User list
  */
 const getList = () => {
   const usersBuffer = readFileSync('data/users.json');
@@ -17,6 +18,7 @@ const getList = () => {
 /**
  * 해당 유저가 DB에 존재 유무 확인
  * @param email Email
+ * @returns user existence in DB
  */
 const exist = ({ email }: { email: string }) => {
   const users = getList();

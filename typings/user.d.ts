@@ -9,7 +9,7 @@ export type StoredUserType = {
   profileImage: string;
 };
 
-// 클라이언트에 전달될 유저 타입 (Password 제거)
+// 클라이언트로 응답 할 유저 타입 (Password 제거)
 export type UserType = {
   id: number;
   email: string;

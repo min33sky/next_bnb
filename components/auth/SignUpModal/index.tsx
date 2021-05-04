@@ -137,10 +137,11 @@ export default function SignUpModal({ closeModal }: IProps) {
               '일',
               ''
             )}`
-          ).toISOString(),
+          ).toISOString(), // 생년월일의 년원일을 제거
         };
 
         const { data } = await signupAPI(signUpBody);
+
         // 응답 결과를 스토어에 저장
         dispatch(userActions.setLoggedUser(data));
 
