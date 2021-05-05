@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -19,6 +19,7 @@ const ProfileButton = styled.button`
   background-color: white;
   cursor: pointer;
   outline: none;
+  z-index: 12;
 
   &:hover {
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
@@ -73,6 +74,23 @@ export default function UserProfileMenu() {
 
   const [isUsermenuOpened, setIsUsermenuOpened] = useState(false); // 로그인 유저 메뉴 버튼 클릭 여부
 
+  const menuRef = useRef<HTMLButtonElement>(null); // 프로밀 메뉴 버튼 Ref
+
+  const onClickOutside = (e: MouseEvent) => {
+    const el = e.target;
+
+    if (menuRef.current) {
+      if (el instanceof Node && !menuRef.current.contains(el)) {
+        setIsUsermenuOpened(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', onClickOutside);
+    return () => document.removeEventListener('mousedown', onClickOutside);
+  }, []);
+
   const logout = async () => {
     try {
       await logoutAPI();
@@ -82,22 +100,19 @@ export default function UserProfileMenu() {
     }
   };
 
-  /**
-   *? OutsiceClickHandler: 현재 컴포넌트(메뉴) 밖을 클릭하면 이벤트를 발생시키는 컴포넌트
-   */
-
   return (
-    <OutsideClickHandler
-      onOutsideClick={() => {
-        if (isUsermenuOpened) {
-          setIsUsermenuOpened(false);
-        }
-      }}
-    >
-      <ProfileButton onClick={() => setIsUsermenuOpened(!isUsermenuOpened)}>
+    <>
+      <ProfileButton
+        ref={menuRef}
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsUsermenuOpened(!isUsermenuOpened);
+        }}
+      >
         <HamburgerIcon />
         <img src={userProfileImage} alt="UserImage" />
       </ProfileButton>
+
       {isUsermenuOpened && (
         <HeaderUsermenu>
           <li>숙소 관리</li>
@@ -112,6 +127,6 @@ export default function UserProfileMenu() {
           </li>
         </HeaderUsermenu>
       )}
-    </OutsideClickHandler>
+    </>
   );
 }
