@@ -8,6 +8,7 @@ import { loginAPI } from 'lib/api/auth';
 import { userActions } from 'store/user';
 import Button from 'components/Common/Button';
 import Input from 'components/Common/Input';
+import useInput from 'hooks/useInput';
 import OpenedEyeIcon from '../../public/static/svg/auth/opened_eye.svg';
 import ClosedEyeIcon from '../../public/static/svg/auth/closed_eye.svg';
 import MailICon from '../../public/static/svg/auth/mail.svg';
@@ -72,8 +73,8 @@ interface IProps {
  */
 export default function LoginModal({ closeModal }: IProps) {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, onChangeEmail] = useInput('');
+  const [password, onChangePassword] = useInput('');
 
   const [isPasswordHided, setIsPasswordHided] = useState(true);
 
@@ -84,14 +85,6 @@ export default function LoginModal({ closeModal }: IProps) {
       setValidateMode(false);
     };
   }, [setValidateMode]);
-
-  const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
 
   const togglePasswordHiding = () => {
     setIsPasswordHided(!isPasswordHided);
@@ -105,6 +98,8 @@ export default function LoginModal({ closeModal }: IProps) {
     event.preventDefault();
 
     setValidateMode(true); // INPUT 검증 모드 ON
+
+    if (!email.trim() || !password.trim()) return;
 
     const loginBody = { email, password };
 
@@ -160,11 +155,7 @@ export default function LoginModal({ closeModal }: IProps) {
 
       <p>
         이미 에어비앤비 계정이 있나요?
-        <span
-          className="login-modal-set-signup"
-          onClick={changeToSignUpModal}
-          role="presentation"
-        >
+        <span className="login-modal-set-signup" onClick={changeToSignUpModal} role="presentation">
           회원 가입
         </span>
       </p>

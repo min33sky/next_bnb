@@ -48,7 +48,7 @@ const useModal = () => {
 
   /**
    * 모달 포탈
-   * @param param0 Modal Component
+   * @param children Modal Component
    * @returns {openModal, closeModal, Modal}
    */
   function ModalPortal({ children }: IProps) {

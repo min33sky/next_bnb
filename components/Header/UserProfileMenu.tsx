@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
-import OutsideClickHandler from 'react-outside-click-handler';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import palette from 'styles/palette';
+import { logoutAPI } from 'lib/api/auth';
+import { userActions } from 'store/user';
+import useClickOutside from 'hooks/useOutsideClick';
 import HamburgerIcon from '../../public/static/svg/header/hamburger.svg';
-import palette from '../../styles/palette';
-import { logoutAPI } from '../../lib/api/auth';
-import { userActions } from '../../store/user';
 
 const ProfileButton = styled.button`
   display: flex;
@@ -72,24 +72,11 @@ export default function UserProfileMenu() {
   const dispatch = useDispatch();
   const userProfileImage = useSelector((state) => state.user.profileImage);
 
-  const [isUsermenuOpened, setIsUsermenuOpened] = useState(false); // 로그인 유저 메뉴 버튼 클릭 여부
-
-  const menuRef = useRef<HTMLButtonElement>(null); // 프로밀 메뉴 버튼 Ref
-
-  const onClickOutside = (e: MouseEvent) => {
-    const el = e.target;
-
-    if (menuRef.current) {
-      if (el instanceof Node && !menuRef.current.contains(el)) {
-        setIsUsermenuOpened(false);
-      }
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', onClickOutside);
-    return () => document.removeEventListener('mousedown', onClickOutside);
-  }, []);
+  const {
+    domRef: menuRef,
+    isClickedOutside: isUsermenuOpened,
+    setIsClickedOutside: setIsUsermenuOpened,
+  } = useClickOutside<HTMLButtonElement>();
 
   const logout = async () => {
     try {
