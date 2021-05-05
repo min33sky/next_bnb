@@ -35,7 +35,7 @@ const reducer = (state: any, action: any) => {
   return rootReducer(state, action);
 };
 
-// ? RootState를 상속하여 DefaultRootState 재정의
+// ? 위에서 정의한 RootState를 상속하여 DefaultRootState 타입 재정의
 declare module 'react-redux' {
   // eslint-disable-next-line no-unused-vars
   interface DefaultRootState extends RootState {}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { commonActions } from '../store/common';
 
 /**
- * 입력값에 대한 검증 모드를 설정하는 Hook
+ * 인풋에 대한 검증 여부를 관리하는 Hook
  */
 export default function useValidateMode() {
   const dispatch = useDispatch();

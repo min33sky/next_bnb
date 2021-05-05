@@ -55,14 +55,11 @@ export default function SignUpModal({ closeModal }: IProps) {
 
   useEffect(() => {
     return () => {
-      // ? 컴포넌트 언마운트 시 검증 모드를 안함으로 설정
+      // ? 컴포넌트 언마운트 시 검증 모드를 초기화
       setValidateMode(false);
     };
   }, [setValidateMode]);
 
-  /**
-   * 패스워드 보이기 여부 핸들러
-   */
   const toggleHidePassword = () => {
     setHidePassword(!hidePassword);
   };
@@ -101,6 +98,7 @@ export default function SignUpModal({ closeModal }: IProps) {
 
   /**
    * 회원 가입 폼 입력 값 확인하기
+   * @returns validation value
    */
   const validateSignUpForm = () => {
     // 인풋 값이 없다면
@@ -122,7 +120,7 @@ export default function SignUpModal({ closeModal }: IProps) {
   const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setValidateMode(true); // Input에 대한 검증 실시를 스토어에 저장
+    setValidateMode(true); // ? 회원가입에 사용되는 모든 Input에 대한 검증 실시
 
     // 유효성 체크 후 API 호출
     if (validateSignUpForm()) {
@@ -223,16 +221,22 @@ export default function SignUpModal({ closeModal }: IProps) {
         />
       </InputWrapper>
 
-      {passwordFocused && (
-        <>
-          <PasswordWarning
-            isValid={!isPasswordHasNameOrEmail}
-            text="비밀번호에 본인 이름이나 이메일 주소를 포함할 수 없습니다."
-          />
-          <PasswordWarning isValid={isPasswordOverMinLength} text="최소 8자리를 입력하세요." />
-          <PasswordWarning isValid={isPasswordHasNumberOrSymbol} text="숫자나 기호를 포함하세요" />
-        </>
-      )}
+      {
+        // ? 패스워드를 입력할 때 패스워드 등록에 관한 설명 표시
+        passwordFocused && (
+          <>
+            <PasswordWarning
+              isValid={!isPasswordHasNameOrEmail}
+              text="비밀번호에 본인 이름이나 이메일 주소를 포함할 수 없습니다."
+            />
+            <PasswordWarning isValid={isPasswordOverMinLength} text="최소 8자리를 입력하세요." />
+            <PasswordWarning
+              isValid={isPasswordHasNumberOrSymbol}
+              text="숫자나 기호를 포함하세요"
+            />
+          </>
+        )
+      }
 
       <p className="sign-up-birthday-label">생일</p>
       <p className="sign-up-modal-birthday-info">

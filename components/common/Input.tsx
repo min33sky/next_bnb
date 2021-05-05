@@ -4,9 +4,9 @@ import styled, { css } from 'styled-components';
 import palette from 'styles/palette';
 
 type InputContainerProps = {
-  iconExist: boolean;
-  isValid: boolean;
-  useValidation: boolean;
+  iconExist: boolean; // 아이콘 존재 여부
+  useValidation: boolean; // 인풋에 대한 검증 여부
+  isValid: boolean; // 검증 값
 };
 
 const Container = styled.div<InputContainerProps>`
@@ -27,12 +27,12 @@ const Container = styled.div<InputContainerProps>`
     font-size: 16px;
     outline: none;
 
-    ::placeholder {
+    & ::placeholder {
       color: ${palette.gray_76};
     }
 
     & :focus {
-      border-color: ${palette.dark_cyan} !important;
+      border-color: ${palette.dark_cyan};
     }
   }
 
@@ -51,7 +51,7 @@ const Container = styled.div<InputContainerProps>`
       }
     `}
 
-  /* 유효할 때 */
+  /* 검증이 유효할 때 */
   ${({ useValidation, isValid }) =>
     useValidation &&
     isValid &&
@@ -71,7 +71,7 @@ const InputIconWrapper = styled.div`
   height: 46px;
 `;
 
-const ErrorMessage = styled.p`
+const InputErrorMessage = styled.p`
   margin-top: 8px;
   font-weight: 600;
   font-size: 14px;
@@ -88,7 +88,11 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 /**
  * Input Component
- * @param param0
+ * @param label
+ * @param icon
+ * @param isValid
+ * @param useValidation
+ * @param errorMessage
  * @returns Input Component
  */
 function Input({
@@ -99,14 +103,11 @@ function Input({
   errorMessage,
   ...props
 }: IProps) {
+  // ? 현재 인풋을 검증할 것인지 스토어에서 확인한다.
   const validateMode = useSelector((state) => state.common.validateMode);
 
   return (
-    <Container
-      iconExist={!!icon}
-      isValid={isValid}
-      useValidation={validateMode && useValidation}
-    >
+    <Container iconExist={!!icon} isValid={isValid} useValidation={validateMode && useValidation}>
       {label && (
         <label>
           <span>{label}</span>
@@ -118,7 +119,7 @@ function Input({
       <InputIconWrapper>{icon}</InputIconWrapper>
 
       {useValidation && validateMode && !isValid && errorMessage && (
-        <ErrorMessage>{errorMessage}</ErrorMessage>
+        <InputErrorMessage>{errorMessage}</InputErrorMessage>
       )}
     </Container>
   );

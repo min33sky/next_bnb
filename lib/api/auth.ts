@@ -19,7 +19,11 @@ export interface SignUpAPIBody {
  */
 export const signupAPI = (body: SignUpAPIBody) => fetch.post<UserType>('/api/auth/signup', body);
 
-// 로그인 API
+/**
+ * 로그인 API
+ * @param body
+ * @returns
+ */
 export const loginAPI = (body: { email: string; password: string }) =>
   fetch.post<UserType>('/api/auth/login', body);
 

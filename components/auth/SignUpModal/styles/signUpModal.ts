@@ -63,7 +63,7 @@ export const SubmitButtonWrapper = styled.div`
 
 export const BirthdaySelectorsWrapper = styled.div`
   display: flex;
-  margin-bottom: 24px;
+  margin-bottom: 34px;
 
   /* 월 */
   > :first-child {

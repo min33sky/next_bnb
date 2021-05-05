@@ -6,6 +6,7 @@ import palette from 'styles/palette';
 import WarningIcon from '../../public/static/svg/common/warning.svg';
 
 /**
+/**
  * 일반 셀렉터 스타일
  */
 const normalSelectorStyle = css`
@@ -26,6 +27,7 @@ const normalSelectorStyle = css`
     background-position: right 11px center;
     background-repeat: no-repeat;
     font-size: 16px;
+    cursor: pointer;
 
     &:focus {
       border-color: ${palette.dark_cyan};
@@ -63,6 +65,7 @@ const RegisterSelectorStyle = css`
     background-image: url('/static/svg/common/selector/register_selector_down_arrow.svg');
     background-position: right 14px center;
     background-repeat: no-repeat;
+    cursor: pointer;
   }
 `;
 
@@ -156,11 +159,7 @@ function Selector({
   const validateMode = useSelector((state) => state.common.validateMode);
 
   return (
-    <Container
-      isValid={!!isValid}
-      validateMode={useValidateMode() && validateMode}
-      type={type}
-    >
+    <Container type={type} isValid={!!isValid} validateMode={useValidateMode() && validateMode}>
       <label>
         {label && <span>{label}</span>}
         <select {...props}>

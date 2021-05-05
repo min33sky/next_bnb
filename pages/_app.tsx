@@ -27,7 +27,7 @@ const app = ({ Component, pageProps }: AppProps) => {
 app.getInitialProps = async (context: AppContext) => {
   const appInitialProps = await App.getInitialProps(context);
   const cookieObject = cookieStringToObject(context.ctx.req?.headers.cookie);
-  console.log(cookieObject);
+  console.log('cookie :', cookieObject);
 
   const { store } = context.ctx; // ? next-redux-wrapper 덕분에 store를 사용할 수 있다.
   const { isLogged } = store.getState().user;

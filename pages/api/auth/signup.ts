@@ -18,7 +18,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // 기존 사용자 찾기
     const userExist = Data.user.exist({ email });
     if (userExist) {
-      return res.status(409).send('이미 가입된 이메일입니다.');
+      return res.status(409).send('Email already exists');
     }
 
     // 패스워드 해시화
@@ -57,10 +57,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // 헤더에 Set-Cookie 설정
     res.setHeader('Set-Cookie', setToken);
 
-    // 보안 위배 정보를 제외하고 클라이언트에 전달하기
-    const newUserWithoutPassword: Partial<Pick<StoredUserType, 'password'>> = newUser; // optional 프로퍼티로 변경
+    // ? 보안 위배 정보(예: 비밀번호)를 제외하고 클라이언트에 전달하기
+    const newUserWithoutPassword: Partial<Pick<StoredUserType, 'password'>> = newUser; // ? 'password'를 optional 프로퍼티로 변경
 
-    delete newUserWithoutPassword.password;
+    delete newUserWithoutPassword.password; // 패스워드 속성 제거 (optional property만 제거 가능)
 
     return res.status(200).send(newUserWithoutPassword);
   }
