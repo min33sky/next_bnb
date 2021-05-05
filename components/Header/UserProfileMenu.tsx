@@ -73,10 +73,11 @@ export default function UserProfileMenu() {
   const userProfileImage = useSelector((state) => state.user.profileImage);
 
   const {
-    domRef: menuRef,
+    buttonRef,
+    menuRef,
     isClickedOutside: isUsermenuOpened,
     setIsClickedOutside: setIsUsermenuOpened,
-  } = useClickOutside<HTMLButtonElement>();
+  } = useClickOutside<HTMLButtonElement & HTMLUListElement>();
 
   const logout = async () => {
     try {
@@ -90,10 +91,9 @@ export default function UserProfileMenu() {
   return (
     <>
       <ProfileButton
-        ref={menuRef}
-        onClick={(e) => {
-          e.stopPropagation();
-          setIsUsermenuOpened(!isUsermenuOpened);
+        ref={buttonRef}
+        onClick={() => {
+          setIsUsermenuOpened((prev) => !prev);
         }}
       >
         <HamburgerIcon />
@@ -101,7 +101,7 @@ export default function UserProfileMenu() {
       </ProfileButton>
 
       {isUsermenuOpened && (
-        <HeaderUsermenu>
+        <HeaderUsermenu ref={menuRef}>
           <li>숙소 관리</li>
           <Link href="/room/register/building">
             <a>
