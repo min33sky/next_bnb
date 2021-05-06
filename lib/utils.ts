@@ -7,13 +7,14 @@ export const cookieStringToObject = (cookieString: string | undefined) => {
   const cookies: { [key: string]: string } = {};
   if (cookieString) {
     //* ex) cookieString = 'token=value; messi=barca; son=spurs';
-    const itemString = cookieString?.split(/\s*;\s/);
+    const itemString = cookieString?.split(/\s*;\s*/);
     //* ex) itemString = ['token=value', 'messi=barca', 'son=spurs']
     itemString.forEach((pairs) => {
       //* ex) pairs = 'token=value'
       const pair = pairs.split(/\s*=\s*/);
       //* ex) pair = ['token', 'value']
-      cookies[pair[0]] = pair.slice(1).join('=');
+      const temp = pair.splice(1)[0];
+      cookies[pair[0]] = temp;
     });
   }
   return cookies;

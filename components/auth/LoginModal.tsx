@@ -47,7 +47,7 @@ const InputWrapper = styled.div`
     top: 16px;
   }
 
-  /* 패스워드 입력창의 시각화 */
+  /* 패스워드 입력창의 시각화 아이콘 */
   &.login-password-input-wrapper {
     svg {
       cursor: pointer;
@@ -86,19 +86,17 @@ export default function LoginModal({ closeModal }: IProps) {
     };
   }, [setValidateMode]);
 
-  const togglePasswordHiding = () => {
-    setIsPasswordHided(!isPasswordHided);
-  };
+  const togglePasswordHiding = () => setIsPasswordHided(!isPasswordHided);
 
-  const changeToSignUpModal = () => {
-    dispatch(authActions.setAuthMode('signup'));
-  };
+  //* 회원가입 모달로 변경
+  const changeToSignUpModal = () => dispatch(authActions.setAuthMode('signup'));
 
   const onSubmitLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setValidateMode(true); // INPUT 검증 모드 ON
 
+    // 조건 불일치 시 API 호출을 막는다.
     if (!email.trim() || !password.trim()) return;
 
     const loginBody = { email, password };
