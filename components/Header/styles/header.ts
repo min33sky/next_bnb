@@ -21,9 +21,5 @@ export const Container = styled.div`
     .header-logo {
       margin-right: 6px;
     }
-    /* react-outside-click-handelr div의 포지션 설정 */
-    /* & + div {
-      position: relative; //? 포지션이 absoulte인 사용자 메뉴의 위치를 잡기 위해서
-    } */
   }
 `;

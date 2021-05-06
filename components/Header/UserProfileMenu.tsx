@@ -65,6 +65,10 @@ const HeaderUsermenu = styled.ul`
   }
 `;
 
+const Container = styled.div`
+  position: relative;
+`;
+
 /**
  * 로그인 시 헤더에 보여줄 메뉴
  */
@@ -89,7 +93,7 @@ export default function UserProfileMenu() {
   };
 
   return (
-    <>
+    <Container>
       <ProfileButton
         ref={buttonRef}
         onClick={() => {
@@ -114,6 +118,6 @@ export default function UserProfileMenu() {
           </li>
         </HeaderUsermenu>
       )}
-    </>
+    </Container>
   );
 }
