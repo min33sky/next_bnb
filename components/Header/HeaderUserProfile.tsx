@@ -8,7 +8,11 @@ import { userActions } from 'store/user';
 import useClickOutside from 'hooks/useOutsideClick';
 import HamburgerIcon from '../../public/static/svg/header/hamburger.svg';
 
-const ProfileButton = styled.button`
+const Container = styled.div`
+  position: relative;
+`;
+
+const UserProfileButton = styled.button`
   display: flex;
   align-items: center;
   height: 42px;
@@ -34,7 +38,7 @@ const ProfileButton = styled.button`
   }
 `;
 
-// 로그인 유저 전용 메뉴
+// 사용자 메뉴 (로그인 전용)
 const HeaderUsermenu = styled.ul`
   position: absolute;
   right: 0;
@@ -65,14 +69,10 @@ const HeaderUsermenu = styled.ul`
   }
 `;
 
-const Container = styled.div`
-  position: relative;
-`;
-
 /**
  * 로그인 시 헤더에 보여줄 메뉴
  */
-export default function UserProfileMenu() {
+export default function HeaderUserProfile() {
   const dispatch = useDispatch();
   const userProfileImage = useSelector((state) => state.user.profileImage);
 
@@ -83,7 +83,7 @@ export default function UserProfileMenu() {
     setIsClickedOutside: setIsUsermenuOpened,
   } = useClickOutside<HTMLButtonElement & HTMLUListElement>();
 
-  const logout = async () => {
+  const onLogout = async () => {
     try {
       await logoutAPI();
       dispatch(userActions.initUser()); // 스토어의 로그인 상태도 초기화
@@ -94,7 +94,7 @@ export default function UserProfileMenu() {
 
   return (
     <Container>
-      <ProfileButton
+      <UserProfileButton
         ref={buttonRef}
         onClick={() => {
           setIsUsermenuOpened((prev) => !prev);
@@ -102,7 +102,7 @@ export default function UserProfileMenu() {
       >
         <HamburgerIcon />
         <img src={userProfileImage} alt="UserImage" />
-      </ProfileButton>
+      </UserProfileButton>
 
       {isUsermenuOpened && (
         <HeaderUsermenu ref={menuRef}>
@@ -113,7 +113,7 @@ export default function UserProfileMenu() {
             </a>
           </Link>
           <div className="header-usermenu-divider" />
-          <li role="presentation" onClick={logout}>
+          <li role="presentation" onClick={onLogout}>
             로그아웃
           </li>
         </HeaderUsermenu>
