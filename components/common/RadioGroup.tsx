@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
+import palette from 'styles/palette';
 import WarningIcon from '../../public/static/svg/common/warning.svg';
-import palette from '../../styles/palette';
 
 const Container = styled.div<{ isValid: boolean; validateMode: boolean }>`
   .radio-label {
@@ -104,10 +104,12 @@ const Container = styled.div<{ isValid: boolean; validateMode: boolean }>`
   }
 `;
 
+//* ************************************************************************************ */
+
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   value?: any;
-  onChange?: (value: any) => void;
+  onChange: (_value: any) => void;
   options?: { label: string; value: any; description?: string }[];
   isValid?: boolean;
   errorMessage?: string;
@@ -115,7 +117,13 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 /**
  * 라디오 그룹 컴포넌트
- * @param param0
+ * @param label
+ * @param value
+ * @param onChange
+ * @param options
+ * @param isValid
+ * @param errorMessage
+ * @returns Radio Group Component
  */
 function RadioGroup({
   label,
@@ -136,7 +144,7 @@ function RadioGroup({
             <input
               type="radio"
               checked={value === option.value}
-              onChange={() => onChange && onChange(option.value)}
+              onChange={() => onChange(option.value)}
             />
             <span>
               {option.label}

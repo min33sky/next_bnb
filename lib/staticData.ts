@@ -405,3 +405,48 @@ export const amentityList = [
 
 //* 편의 공간
 export const convinienceList = ['주방', '세탁 공간 - 세탁기', '주차', '헬스장', '수영장', '자쿠지'];
+
+//* ******************************************************************************************* */
+//*                                    숙소 등록 1단계                                         */
+//* ******************************************************************************************* */
+
+/**
+ * 선택 불가능한 큰 범위 건물 유형
+ */
+export const disabledLargeBuildingTypeOptions = ['하나를 선택해주세요.'];
+
+/**
+ * 숙소 유형 radio options
+ */
+export const roomTypeRadioOptions = [
+  {
+    label: '집 전체',
+    value: 'entire',
+    description:
+      '게스트가 숙소 전체를 다음 사람과 공유하지 않고 단독으로 이용합니다. 일반적으로 침실, 욕실, 부엌이 포함됩니다.',
+  },
+  {
+    label: '개인실',
+    value: 'private',
+    description: '게스트에게 개인 침실이 제공됩니다. 침실 이외의 공간은 공요할 수 있습니다.',
+  },
+  {
+    label: '다인실',
+    value: 'public',
+    description: '게스트는 개인 공간 없이, 다른 사람과 함께 쓰는 침실이나 공용공간에서 숙박합니다.',
+  },
+];
+
+/**
+ * 게스트만 사용하도록 만들어진 숙소인지 선택하는 radio options
+ */
+export const isSetUpForGuestOptions = [
+  {
+    label: '예, 게스트용으로 따로 마련된 숙소입니다.',
+    value: true,
+  },
+  {
+    label: '아니오, 제 개인 물건이 숙소에 있습니다.',
+    value: false,
+  },
+];

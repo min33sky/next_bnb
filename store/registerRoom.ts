@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BedType } from '../typings/room';
+import { BedType } from 'typings/room';
 
+/**
+ * 등록할 숙소의 타입
+ */
 type RegisterRoomState = {
+  // 숙소
   largeBuildingType: string | null;
   buildingType: string | null;
   roomType: string | null;
@@ -214,10 +218,7 @@ const registerRoom = createSlice({
     },
 
     //* 공용공간 침대 유형 개수 변경하기
-    setPublicBedTypeCount(
-      state,
-      action: PayloadAction<{ type: BedType; count: number }>
-    ) {
+    setPublicBedTypeCount(state, action: PayloadAction<{ type: BedType; count: number }>) {
       const { count, type } = action.payload;
       const index = state.publicBedList.findIndex((bed) => bed.type === type);
       if (index === -1) {

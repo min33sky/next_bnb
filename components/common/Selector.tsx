@@ -1,4 +1,3 @@
-import useValidateMode from 'hooks/useValidateMode';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
@@ -6,8 +5,7 @@ import palette from 'styles/palette';
 import WarningIcon from '../../public/static/svg/common/warning.svg';
 
 /**
-/**
- * 일반 셀렉터 스타일
+ * 일반적인 셀렉터 스타일
  */
 const normalSelectorStyle = css`
   width: 100%; /* width가 100%이므로 width를 설정하고 margin을 줄 Wrapper를 만들어서 사용 */
@@ -36,7 +34,7 @@ const normalSelectorStyle = css`
 `;
 
 /**
- * 숙소 등록 전용 셀렉터
+ * 숙소 등록에서 사용되는 셀렉터
  */
 const RegisterSelectorStyle = css`
   width: 100%;
@@ -159,7 +157,7 @@ function Selector({
   const validateMode = useSelector((state) => state.common.validateMode);
 
   return (
-    <Container type={type} isValid={!!isValid} validateMode={useValidateMode() && validateMode}>
+    <Container type={type} isValid={!!isValid} validateMode={useValidation && validateMode}>
       <label>
         {label && <span>{label}</span>}
         <select {...props}>

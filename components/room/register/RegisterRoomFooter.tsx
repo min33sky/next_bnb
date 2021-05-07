@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import useValidateMode from '../../../hooks/useValidateMode';
+import useValidateMode from 'hooks/useValidateMode';
+import palette from 'styles/palette';
+import Button from 'components/Common/Button';
 import BackArrowIcon from '../../../public/static/svg/register/register_room_footer_back_arrow.svg';
-import palette from '../../../styles/palette';
-import Button from '../../Common/Button';
 
 const Container = styled.footer`
   position: fixed;
@@ -16,8 +16,7 @@ const Container = styled.footer`
   height: 82px;
   padding: 14px 30px 20px;
   background-color: white;
-  /* 모달 활성화시 비활성화 */
-  /* z-index: 10; */
+  z-index: 10;
   border-top: 1px solid ${palette.gray_dd};
 
   .register-room-footer-back {
@@ -40,9 +39,10 @@ interface IProps {
 }
 
 /**
- * 침실 등록 화면의 Footer
+ * 숙소 등록단계 화면의 푸터
  * @param prevHref 뒤로 가기 URL
  * @param prevHref 다음 URL
+ * @param isValid 현재 등록 단계의 유효성 체크
  */
 function RegisterRoomFooter({ prevHref, nextHref, isValid = true }: IProps) {
   const { setValidateMode } = useValidateMode();
@@ -54,9 +54,7 @@ function RegisterRoomFooter({ prevHref, nextHref, isValid = true }: IProps) {
   }, [setValidateMode]);
 
   //* 계속 버튼 클릭 시
-  const onClickNext = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onClickNext = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (!isValid) {
       event.preventDefault();
       setValidateMode(true);
