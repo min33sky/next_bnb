@@ -1,13 +1,13 @@
+import Button from 'components/Common/Button';
+import Counter from 'components/Common/Counter';
+import Selector from 'components/Common/Selector';
+import { bedTypes } from 'lib/staticData';
 import React, { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { registerRoomActions } from 'store/registerRoom';
 import styled from 'styled-components';
-import { bedTypes } from '../../../lib/staticData';
-import { registerRoomActions } from '../../../store/registerRoom';
-import palette from '../../../styles/palette';
-import { BedType } from '../../../typings/room';
-import Button from '../../Common/Button';
-import Counter from '../../Common/Counter';
-import Selector from '../../Common/Selector';
+import palette from 'styles/palette';
+import { BedType } from 'typings/room';
 
 const Container = styled.li`
   width: 100%;
@@ -23,8 +23,12 @@ const Container = styled.li`
     align-items: center;
   }
 
+  .register-room-bed-type-bedroom-texts {
+    margin-bottom: 28px;
+  }
+
   .register-room-bed-type-bedroom {
-    font-size: 19px;
+    font-size: 22px;
     color: ${palette.gray_48};
   }
 
@@ -57,6 +61,7 @@ interface IProps {
  * @param bedroom 침실
  */
 export default function RegisterRoomBedTypes({ bedroom }: IProps) {
+  const dispatch = useDispatch();
   //* 선택된 침대 옵션의 초기값 (스토어에 저장된 값)
   const initialBedOptions = bedroom.beds.map((bed) => bed.type);
 
@@ -64,11 +69,7 @@ export default function RegisterRoomBedTypes({ bedroom }: IProps) {
   const [opened, setOpened] = useState(false);
 
   //* 선택된 침대 옵션들
-  const [activedBedOptions, setActivedBedOptions] = useState<BedType[]>(
-    initialBedOptions
-  );
-
-  const dispatch = useDispatch();
+  const [activedBedOptions, setActivedBedOptions] = useState<BedType[]>(initialBedOptions);
 
   /**
    * 침실의 침대 개수 총합
@@ -88,8 +89,6 @@ export default function RegisterRoomBedTypes({ bedroom }: IProps) {
   const lastBedOptions = useMemo(() => {
     return bedTypes.filter((bedType) => !activedBedOptions.includes(bedType));
   }, [activedBedOptions]);
-
-  console.log('선택된 침대 옵션들: ', activedBedOptions);
 
   /**
    * 침실 유형 열고 닫기
@@ -118,7 +117,7 @@ export default function RegisterRoomBedTypes({ bedroom }: IProps) {
   return (
     <Container>
       <div className="register-room-bed-type-top">
-        <div className="register-room-bed-type-bedtoom-texts">
+        <div className="register-room-bed-type-bedroom-texts">
           <p className="register-room-bed-type-bedroom">{bedroom.id}번 침실</p>
           <p className="register-room-bed-type-bedroom-counts">
             침대 {totalBedsCount}개 <br />
@@ -128,8 +127,7 @@ export default function RegisterRoomBedTypes({ bedroom }: IProps) {
 
         <Button onClick={toggleOpened} styleType="register" color="white">
           {opened && '완료'}
-          {!opened &&
-            (totalBedsCount === 0 ? '침대 추가하기' : '침대 수정하기')}
+          {!opened && (totalBedsCount === 0 ? '침대 추가하기' : '침대 수정하기')}
         </Button>
       </div>
 
@@ -142,9 +140,7 @@ export default function RegisterRoomBedTypes({ bedroom }: IProps) {
                 <Counter
                   key={type}
                   label={type}
-                  value={
-                    bedroom.beds.find((bed) => bed.type === type)?.count || 0
-                  }
+                  value={bedroom.beds.find((bed) => bed.type === type)?.count || 0}
                   onChange={(value) => {
                     onChangeBedTypeCount(value, type);
                   }}
@@ -159,10 +155,7 @@ export default function RegisterRoomBedTypes({ bedroom }: IProps) {
               options={lastBedOptions}
               useValidation={false}
               onChange={(e) =>
-                setActivedBedOptions([
-                  ...activedBedOptions,
-                  e.target.value as BedType,
-                ])
+                setActivedBedOptions([...activedBedOptions, e.target.value as BedType])
               }
             />
           </div>

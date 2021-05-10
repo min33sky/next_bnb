@@ -1,17 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { bedroomCountList } from '../../../lib/staticData';
-import { getNumber } from '../../../lib/utils';
-import { registerRoomActions } from '../../../store/registerRoom';
-import palette from '../../../styles/palette';
-import Counter from '../../Common/Counter';
-import Selector from '../../Common/Selector';
+import { bedroomCountList } from 'lib/staticData';
+import { getNumber } from 'lib/utils';
+import { registerRoomActions } from 'store/registerRoom';
+import palette from 'styles/palette';
+import Counter from 'components/Common/Counter';
+import Selector from 'components/Common/Selector';
 import RegisterRoomBedList from './RegisterRoomBedList';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
-  padding: 102px 30px 100px;
+  padding: 62px 30px 100px;
 
   h2 {
     font-size: 19px;
@@ -60,21 +60,16 @@ const Container = styled.div`
     max-width: 400px;
     word-break: keep-all;
   }
-
-  .register-room-bed-type-list-wrapper {
-    width: 548px;
-  }
 `;
 
 //* ------------------------------------------------------------------------------------- //
 
 /**
  * 숙소 등록하기 [2단계: 침실 등록]
+ * @returns Component to register bedrooms
  */
 export default function RegisterRoomBedrooms() {
-  const maximumGuestCount = useSelector(
-    (state) => state.registerRoom.maximumGuestCount
-  );
+  const maximumGuestCount = useSelector((state) => state.registerRoom.maximumGuestCount);
   const bedRoomCount = useSelector((state) => state.registerRoom.bedroomCount);
   const bedCount = useSelector((state) => state.registerRoom.bedCount);
 
@@ -91,12 +86,8 @@ export default function RegisterRoomBedrooms() {
   /**
    * 침실 개수 변경 시
    */
-  const onChangeBedroomCount = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    dispatch(
-      registerRoomActions.setBedroomCount(getNumber(event.target.value) || 0)
-    );
+  const onChangeBedroomCount = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(registerRoomActions.setBedroomCount(getNumber(event.target.value) || 0));
   };
 
   /**
@@ -112,8 +103,7 @@ export default function RegisterRoomBedrooms() {
       <h2>숙소에 얼마나 많은 인원이 숙박할 수 있나요?</h2>
       <h3>2단계</h3>
       <p className="room-register-step-info">
-        모든 게스트가 편안하게 숙박할 수 있도록 침대가 충분히 구비되어 있는지
-        확인하세요.
+        모든 게스트가 편안하게 숙박할 수 있도록 침대가 충분히 구비되어 있는지 확인하세요.
       </p>
 
       <div className="register-room-maximum-guest-count-wrapper">
@@ -141,9 +131,10 @@ export default function RegisterRoomBedrooms() {
 
       <h4>침대 유형</h4>
       <p className="register-room-bed-type-info">
-        각 침실에 놓인 침대 유형을 명시하면 숙소에 침대가 어떻게 구비되어 있는지
-        게스트가 잘 파악할 수 있습니다.
+        각 침실에 놓인 침대 유형을 명시하면 숙소에 침대가 어떻게 구비되어 있는지 게스트가 잘 파악할
+        수 있습니다.
       </p>
+
       <RegisterRoomBedList />
 
       <RegisterRoomFooter

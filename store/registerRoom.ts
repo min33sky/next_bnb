@@ -56,6 +56,7 @@ type RegisterRoomState = {
 };
 
 const initialState: RegisterRoomState = {
+  // ? 1단계
   // 건물 유형 큰 범주
   largeBuildingType: null,
   // 건물 유형
@@ -64,6 +65,8 @@ const initialState: RegisterRoomState = {
   roomType: null,
   // 게스트만을 위해 만들어진 숙소인가
   isSetUpForGuest: null,
+
+  // ? 2단계
   // 최대 숙박 인원
   maximumGuestCount: 1,
   // 침실 개수
@@ -171,11 +174,15 @@ const registerRoom = createSlice({
 
       state.bedroomCount = bedroomCount;
 
+      /**
+       * 침실 개수의 변경에 따라 bedList도 변경된다.
+       */
+
       if (bedroomCount < bedList.length) {
         //* 변경될 침대 개수보다 기존 침대 개수가 더 많으면 초과 부분 잘라내기
         bedList = state.bedList.slice(0, bedroomCount);
       } else {
-        //* 변경될 침대 개수가 더 많으면 나머지 침실 채우기
+        //* 침실 개수가 현재 침대 리스트 개수보다 크면 침실 개수만큼 침대를 채운다
         for (let i = bedList.length + 1; i < bedroomCount + 1; i += 1) {
           bedList.push({ id: i, beds: [] });
         }

@@ -1,15 +1,15 @@
 import React, { useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { bedTypes } from '../../../lib/staticData';
-import { registerRoomActions } from '../../../store/registerRoom';
-import palette from '../../../styles/palette';
-import { BedType } from '../../../typings/room';
-import Button from '../../Common/Button';
-import Counter from '../../Common/Counter';
-import Selector from '../../Common/Selector';
+import palette from 'styles/palette';
+import { BedType } from 'typings/room';
+import { bedTypes } from 'lib/staticData';
+import { registerRoomActions } from 'store/registerRoom';
+import Button from 'components/Common/Button';
+import Counter from 'components/Common/Counter';
+import Selector from 'components/Common/Selector';
 
-const Container = styled.div`
+const Container = styled.li`
   width: 100%;
   padding: 28px 0;
   border-top: 1px solid ${palette.gray_dd};
@@ -24,7 +24,7 @@ const Container = styled.div`
   }
 
   .register-room-bed-type-bedroom {
-    font-size: 19px;
+    font-size: 22px;
     color: ${palette.gray_48};
   }
   .register-room-public-bed-type-counters {
@@ -48,9 +48,7 @@ const Container = styled.div`
  */
 export default function RegisterRoomPublicBedTypes() {
   const [opened, setOpened] = useState(false);
-  const publicBedList = useSelector(
-    (state) => state.registerRoom.publicBedList
-  );
+  const publicBedList = useSelector((state) => state.registerRoom.publicBedList);
 
   const dispatch = useDispatch();
 
@@ -68,9 +66,7 @@ export default function RegisterRoomPublicBedTypes() {
   }, [publicBedList]);
 
   const initialBedOptions = () => publicBedList.map((bed) => bed.type);
-  const [activeBedOptions, setActiveBedOptions] = useState<BedType[]>(
-    initialBedOptions
-  );
+  const [activeBedOptions, setActiveBedOptions] = useState<BedType[]>(initialBedOptions);
 
   const lastBedOptions = useMemo(() => {
     return bedTypes.filter((bedType) => !activeBedOptions.includes(bedType));
@@ -86,14 +82,9 @@ export default function RegisterRoomPublicBedTypes() {
             {bedsText}
           </p>
         </div>
-        <Button
-          onClick={() => setOpened(!opened)}
-          styleType="register"
-          color="white"
-        >
+        <Button onClick={() => setOpened(!opened)} styleType="register" color="white">
           {opened && '완료'}
-          {!opened &&
-            (totalBedsCount === 0 ? '침대 추가하기' : '침대 수정하기')}
+          {!opened && (totalBedsCount === 0 ? '침대 추가하기' : '침대 수정하기')}
         </Button>
       </div>
       {opened && (
@@ -102,9 +93,7 @@ export default function RegisterRoomPublicBedTypes() {
             <div className="register-room-bed-type-counter" key={type}>
               <Counter
                 label={type}
-                value={
-                  publicBedList.find((bed) => bed.type === type)?.count || 0
-                }
+                value={publicBedList.find((bed) => bed.type === type)?.count || 0}
                 key={type}
                 onChange={(value) =>
                   dispatch(
@@ -123,12 +112,7 @@ export default function RegisterRoomPublicBedTypes() {
             disabledOptions={['다른 침대 추가']}
             value="다른 침대 추가"
             useValidation={false}
-            onChange={(e) =>
-              setActiveBedOptions([
-                ...activeBedOptions,
-                e.target.value as BedType,
-              ])
-            }
+            onChange={(e) => setActiveBedOptions([...activeBedOptions, e.target.value as BedType])}
           />
         </div>
       )}

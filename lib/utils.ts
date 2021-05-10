@@ -26,10 +26,7 @@ export const cookieStringToObject = (cookieString: string | undefined) => {
  */
 export const getNumber = (string: string) => {
   const numbers = string.match(/\d/g)?.join('');
-  if (numbers) {
-    return Number(numbers);
-  }
-  return null;
+  return numbers ? Number(numbers) : null;
 };
 
 /**

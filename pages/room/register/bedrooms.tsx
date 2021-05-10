@@ -1,8 +1,8 @@
 import React from 'react';
-import RegisterRoomBedrooms from '../../../components/room/register/RegisterRoomBedrooms';
+import RegisterRoomBedrooms from 'components/room/register/RegisterRoomBedrooms';
 
 /**
- * 침실 등록 페이지
+ * 침대 등록 페이지 (숙소 등록 2단계)
  * /room/register/badrooms
  */
 function bedrooms() {

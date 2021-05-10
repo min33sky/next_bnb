@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import palette from 'styles/palette';
 import CounterMinusIcon from '../../public/static/svg/common/counter/counter_minus.svg';
 import CounterPlusIcon from '../../public/static/svg/common/counter/counter_plus.svg';
-import palette from '../../styles/palette';
 
 const Container = styled.div`
   display: flex;
@@ -57,13 +57,20 @@ interface IProps {
   value?: number;
   minValue?: number;
   increaseNum?: number;
-  onChange?: (value: number) => void;
+  onChange: (_value: number) => void;
 }
 
 /**
  * 카운터 컴포넌트
+ * @param label 라벨
+ * @param value 값
+ * @param minValue 최소 값
+ * @param increaseNum 증가 값
+ * @param onChange 이벤트 핸들러
+ * @param description 설명
+ * @returns Counter Component
  */
-export default function Counter({
+function Counter({
   label,
   value = 1,
   minValue = 0,
@@ -75,37 +82,26 @@ export default function Counter({
     <Container>
       <label className="counter-label">
         {label}
-        {description && (
-          <span className="counter-description">{description}</span>
-        )}
+        {description && <span className="counter-description">{description}</span>}
       </label>
 
       <div className="counter-contents">
         <button
           type="button"
           disabled={value === minValue}
-          onClick={() => {
-            if (onChange) {
-              onChange(value - increaseNum);
-            }
-          }}
+          onClick={() => onChange(value - increaseNum)}
         >
           <CounterMinusIcon />
         </button>
 
         <p>{value}</p>
 
-        <button
-          type="button"
-          onClick={() => {
-            if (onChange) {
-              onChange(value + increaseNum);
-            }
-          }}
-        >
+        <button type="button" onClick={() => onChange(value + increaseNum)}>
           <CounterPlusIcon />
         </button>
       </div>
     </Container>
   );
 }
+
+export default React.memo(Counter);

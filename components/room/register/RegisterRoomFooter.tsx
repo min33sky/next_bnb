@@ -81,4 +81,4 @@ function RegisterRoomFooter({ prevHref, nextHref, isValid = true }: IProps) {
   );
 }
 
-export default RegisterRoomFooter;
+export default React.memo(RegisterRoomFooter);
