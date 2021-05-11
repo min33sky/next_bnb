@@ -242,6 +242,7 @@ const registerRoom = createSlice({
       return state;
     },
 
+    // ? 숙소 등록 3단계
     // 욕실 개수 변경하기
     setBathroomCount(state, action: PayloadAction<number>) {
       state.bathroomCount = action.payload;
