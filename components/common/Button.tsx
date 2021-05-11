@@ -5,7 +5,7 @@ import palette from 'styles/palette';
 /**
  * 버튼 색상 구하기
  * @param color 버튼 색상
- * @param colorReverse 색상 반전
+ * @param colorReverse 버튼 색상 반전
  * @returns 버튼 색상 css 함수
  */
 const getButtonColor = (
@@ -41,12 +41,6 @@ const getButtonColor = (
       return css`
         background-color: ${palette.bittersweet};
         color: white;
-      `;
-
-    case 'white':
-      return css`
-        background-color: white;
-        color: black;
       `;
 
     default:
@@ -121,6 +115,7 @@ const Container = styled.button<StyledButtonProps>`
   ${(props) => getButtonColor(props.color, props.colorReverse)}
   ${(props) => getButtonSize(props.size)}
 
+  /* 버튼 아이콘 */
   svg {
     margin-right: 12px;
   }

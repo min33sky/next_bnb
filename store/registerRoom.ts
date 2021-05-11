@@ -77,10 +77,14 @@ const initialState: RegisterRoomState = {
   bedList: [],
   // 공용공간 침대 유형
   publicBedList: [],
+
+  // ? 3단계
   // 욕실 개수
   bathroomCount: 1,
   // 욕실 유형
   bathroomType: null,
+
+  // ? 4단계
   // 국가 / 지역
   country: '',
   // 시 / 도
@@ -255,6 +259,7 @@ const registerRoom = createSlice({
       return state;
     },
 
+    // ? 숙소등록 4단계
     // 국가 변경하기
     setCountry(state, action: PayloadAction<string>) {
       state.country = action.payload;

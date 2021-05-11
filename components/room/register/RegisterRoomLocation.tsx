@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import palette from '../../../styles/palette';
-import Button from '../../Common/Button';
+import palette from 'styles/palette';
+import { countryList } from 'lib/staticData';
+import { registerRoomActions } from 'store/registerRoom';
+import { geoLocationInfoAPI } from 'lib/api/map';
+import Button from 'components/Common/Button';
+import Selector from 'components/Common/Selector';
+import Input from 'components/Common/Input';
 import NavigationIcon from '../../../public/static/svg/register/navigation.svg';
-import Selector from '../../Common/Selector';
-import { countryList } from '../../../lib/staticData';
-import Input from '../../Common/Input';
-import { registerRoomActions } from '../../../store/registerRoom';
-import { geoLocationInfoAPI } from '../../../lib/api/map';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
-  padding: 102px 30px 100px;
+  padding: 62px 30px 100px;
 
   h2 {
     font-size: 19px;
@@ -33,7 +33,7 @@ const Container = styled.div`
   }
 
   .register-room-location-button-wrapper {
-    width: 186px;
+    width: 176px;
     margin-bottom: 24px;
   }
 
@@ -45,23 +45,18 @@ const Container = styled.div`
 
 /**
  * 숙소 등록 [4단계: 위치 설정]
+ * @returns Component to register location
  */
 export default function RegisterRoomLocation() {
-  const country = useSelector((state) => state.registerRoom.country);
+  const dispatch = useDispatch();
   const city = useSelector((state) => state.registerRoom.city);
   const district = useSelector((state) => state.registerRoom.district);
-  const streetAddress = useSelector(
-    (state) => state.registerRoom.streetAddress
-  );
-  const detailAddress = useSelector(
-    (state) => state.registerRoom.detailAddress
-  );
+  const streetAddress = useSelector((state) => state.registerRoom.streetAddress);
+  const detailAddress = useSelector((state) => state.registerRoom.detailAddress);
   const postcode = useSelector((state) => state.registerRoom.postcode);
 
   //* 현재 주소 불러오기 로딩
   const [loading, setLoading] = useState(false);
-
-  const dispatch = useDispatch();
 
   const onChangeCountry = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(registerRoomActions.setCountry(event.target.value));
@@ -75,15 +70,11 @@ export default function RegisterRoomLocation() {
     dispatch(registerRoomActions.setDistrict(event.target.value));
   };
 
-  const onChangeStreetAddress = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const onChangeStreetAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(registerRoomActions.setStreetAddress(event.target.value));
   };
 
-  const onChangeDetailAddress = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const onChangeDetailAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(registerRoomActions.setDetailAddress(event.target.value));
   };
 
@@ -105,9 +96,7 @@ export default function RegisterRoomLocation() {
       dispatch(registerRoomActions.setCountry(currentLocation.country));
       dispatch(registerRoomActions.setCity(currentLocation.city));
       dispatch(registerRoomActions.setDistrict(currentLocation.district));
-      dispatch(
-        registerRoomActions.setStreetAddress(currentLocation.streetAddress)
-      );
+      dispatch(registerRoomActions.setStreetAddress(currentLocation.streetAddress));
       dispatch(registerRoomActions.setPostcode(currentLocation.postcode));
       dispatch(registerRoomActions.setLatitude(currentLocation.latitude));
       dispatch(registerRoomActions.setLongitude(currentLocation.longitude));
@@ -154,7 +143,7 @@ export default function RegisterRoomLocation() {
           type="register"
           options={countryList}
           useValidation={false}
-          value={country}
+          defaultValue="국가/지역 선택"
           disabledOptions={['국가/지역 선택']}
           onChange={onChangeCountry}
         />
@@ -165,11 +154,7 @@ export default function RegisterRoomLocation() {
         <Input label="시/군/구" value={district} onChange={onChangeDistrict} />
       </div>
       <div className="register-room-location-street-address">
-        <Input
-          label="도로명주소"
-          value={streetAddress}
-          onChange={onChangeStreetAddress}
-        />
+        <Input label="도로명주소" value={streetAddress} onChange={onChangeStreetAddress} />
       </div>
       <div className="register-room-lacation-detail-address">
         <Input
@@ -183,10 +168,7 @@ export default function RegisterRoomLocation() {
         <Input label="우편번호" value={postcode} onChange={onChangePostcode} />
       </div>
 
-      <RegisterRoomFooter
-        prevHref="/room/register/bathroom"
-        nextHref="/room/register/geometry"
-      />
+      <RegisterRoomFooter prevHref="/room/register/bathroom" nextHref="/room/register/geometry" />
     </Container>
   );
 }

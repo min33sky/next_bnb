@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import throttle from 'lodash/throttle';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import palette from '../../../styles/palette';
-import { registerRoomActions } from '../../../store/registerRoom';
+import palette from 'styles/palette';
+import { registerRoomActions } from 'store/registerRoom';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
-  padding: 102px 30px 100px;
+  padding: 62px 30px 100px;
 
   h2 {
     font-size: 19px;
@@ -67,7 +67,8 @@ const loadMapScript = () => {
 
 declare global {
   interface Window {
-    initMap: any;
+    google: any;
+    initMap: () => void;
   }
 }
 

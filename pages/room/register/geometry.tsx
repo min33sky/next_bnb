@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 /**
  * ? dynamic을 사용하여 서버 사이드 랜더링을 하지 않고 불러온다.
  * ? dynamic을 사용하지 않고 import하면 window is undefined 에러 발생
+ * ? 서버에서는 window와 document를 사용할 수 없기 때문
  */
 const RegisterRoomGeometry = dynamic(
   import('../../../components/room/register/RegisterRoomGeometry'),
