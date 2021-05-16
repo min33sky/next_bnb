@@ -387,7 +387,9 @@ export const countryList = [
   '홍콩',
 ];
 
-//* 편의 시설
+/**
+ ** 편의시설 리스트
+ */
 export const amentityList = [
   '무선 인터넷',
   'TV',

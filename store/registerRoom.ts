@@ -102,6 +102,7 @@ const initialState: RegisterRoomState = {
   // 경도
   longitude: 0,
 
+  // ? 숙소 등록 5단계
   // 편의 시설
   amentities: [],
 
@@ -308,6 +309,7 @@ const registerRoom = createSlice({
       return state;
     },
 
+    // ? 숙소 등록 5단계
     // 편의 시설 변경하기
     setAmentities(state, action: PayloadAction<string[]>) {
       state.amentities = action.payload;
