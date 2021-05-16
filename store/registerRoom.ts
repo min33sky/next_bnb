@@ -316,6 +316,7 @@ const registerRoom = createSlice({
       return state;
     },
 
+    // ? 숙소 등록 6단계
     // 편의 공간 변경하기
     setConveniences(state, action: PayloadAction<string[]>) {
       state.conveniences = action.payload;
