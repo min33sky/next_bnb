@@ -1,8 +1,8 @@
+import RegisterRoomAmentities from 'components/room/register/RegisterRoomAmentities';
 import React from 'react';
-import RegisterRoomAmentities from '../../../components/room/register/RegisterRoomAmentities';
 
 /**
- * 편의 시설 페이지
+ * 편의 시설 페이지 (숙소 등록 5단계)
  * /room/register/amentities
  */
 export default function amentities() {

@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { convinienceList } from '../../../lib/staticData';
-import { registerRoomActions } from '../../../store/registerRoom';
-import palette from '../../../styles/palette';
-import CheckboxGroup from '../../Common/CheckboxGroup';
+import { convinienceList } from 'lib/staticData';
+import { registerRoomActions } from 'store/registerRoom';
+import palette from 'styles/palette';
+import CheckboxGroup from 'components/Common/CheckboxGroup';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
-  padding: 102px 30px 100px;
+  padding: 62px 30px 100px;
 
   h2 {
     font-size: 19px;
@@ -33,10 +33,10 @@ const Container = styled.div`
 
 /**
  * 숙소 등록 [6단계: 편의 공간]
+ * @returns Component to register conveniences
  */
 export default function RegisterRoomConveniences() {
   const dispatch = useDispatch();
-
   const conveniences = useSelector((state) => state.registerRoom.conveniences);
 
   const onChangeConveniences = (selected: string[]) => {
@@ -59,10 +59,7 @@ export default function RegisterRoomConveniences() {
         />
       </div>
 
-      <RegisterRoomFooter
-        prevHref="/room/register/amentities"
-        nextHref="/room/register/photo"
-      />
+      <RegisterRoomFooter prevHref="/room/register/amentities" nextHref="/room/register/photo" />
     </Container>
   );
 }

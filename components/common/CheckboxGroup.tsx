@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import palette from '../../styles/palette';
 
@@ -85,21 +86,26 @@ const Container = styled.div`
 
 interface IProps {
   value?: string[];
-  onChange: (selected: string[]) => void;
+  onChange: (_selected: string[]) => void;
   options?: string[];
 }
 
 /**
- * 체크 박스
+ * 체크 박스 컴포넌트
  * @param value 체크된 값들
- * @param onChange 체크 이벤트 함수
- * @param options 목록
+ * @param onChange 체크 이벤트 리스너
+ * @param options 체크 박스를 보여줄 목록
+ * @returns Checkbox Component
  */
-export default function CheckboxGroup({
-  value = [],
-  onChange,
-  options = [],
-}: IProps) {
+export default function CheckboxGroup({ value = [], onChange, options = [] }: IProps) {
+  const onChangeChecked = useCallback(
+    (option: string) => (e: React.ChangeEvent<HTMLInputElement>) =>
+      e.target.checked
+        ? onChange([...value!, option])
+        : onChange(value.filter((item) => item !== option)),
+    [onChange, value]
+  );
+
   return (
     <Container>
       {options.map((option) => (
@@ -107,13 +113,7 @@ export default function CheckboxGroup({
           <input
             type="checkbox"
             checked={value?.includes(option)}
-            onChange={(e) => {
-              if (e.target.checked) {
-                onChange([...value!, option]);
-              } else {
-                onChange(value.filter((option_) => option_ !== option));
-              }
-            }}
+            onChange={onChangeChecked(option)}
           />
           <span />
           {option}

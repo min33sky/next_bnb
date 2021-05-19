@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import { uploadFileAPI } from 'lib/api/file';
+import { registerRoomActions } from 'store/registerRoom';
+import palette from 'styles/palette';
 import TrashCanIcon from '../../../public/static/svg/register/photo/trash_can.svg';
 import PencilIcon from '../../../public/static/svg/register/photo/pencil.svg';
 import GrayPlusIcon from '../../../public/static/svg/register/photo/gray_plus.svg';
-import palette from '../../../styles/palette';
-import { uploadFileAPI } from '../../../lib/api/file';
-import { registerRoomActions } from '../../../store/registerRoom';
 
 const Container = styled.ul`
   width: 858px;
@@ -14,10 +14,10 @@ const Container = styled.ul`
 
   /* 첫 번째 사진 */
   .register-room-first-photo-wrapper {
+    position: relative;
     width: 858px;
     height: 433px;
     margin: 0 auto 24px;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@ const Container = styled.ul`
 
   /* 수정, 삭제 버튼 */
   .register-room-photo-interaction-buttons {
-    display: none;
+    display: none; // mouse hover일때만 버튼을 보여준다.
     position: absolute;
     top: 8px;
     right: 8px;
@@ -141,9 +141,7 @@ export default function RegisterRoomPhotoCardList({ photos }: IProps) {
         const formData = new FormData();
         formData.append('file', file);
         uploadFileAPI(formData)
-          .then(({ data }) =>
-            dispatch(registerRoomActions.setPhotos([...photos, data]))
-          )
+          .then(({ data }) => dispatch(registerRoomActions.setPhotos([...photos, data])))
           .catch((e) => console.log(e));
       }
     };
@@ -215,11 +213,7 @@ export default function RegisterRoomPhotoCardList({ photos }: IProps) {
         </React.Fragment>
       ))}
 
-      <li
-        className="register-room-photo-card"
-        role="presentation"
-        onClick={addPhoto}
-      >
+      <li className="register-room-photo-card" role="presentation" onClick={addPhoto}>
         <div className="register-room-add-more-photo-card">
           <GrayPlusIcon />
           추가하기

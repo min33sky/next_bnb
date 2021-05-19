@@ -2,16 +2,16 @@ import React from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import palette from '../../../styles/palette';
-import Button from '../../Common/Button';
+import palette from 'styles/palette';
+import { uploadFileAPI } from 'lib/api/file';
+import { registerRoomActions } from 'store/registerRoom';
+import Button from 'components/Common/Button';
 import UploadIcon from '../../../public/static/svg/register/upload.svg';
-import { uploadFileAPI } from '../../../lib/api/file';
-import { registerRoomActions } from '../../../store/registerRoom';
 import RegisterRoomPhotoCardList from './RegisterRoomPhotoCardList';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
-  padding: 102px 30px 100px;
+  padding: 62px 30px 100px;
 
   h2 {
     font-size: 19px;
@@ -27,15 +27,15 @@ const Container = styled.div`
 
   .register-room-step-info {
     font-size: 14px;
-    max-width: 400px;
+    min-width: 400px;
     margin-bottom: 24px;
   }
 
   .register-room-upload-photo-wrapper {
+    position: relative;
     width: 858px;
     height: 433px;
     margin: auto;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,11 +62,11 @@ const Container = styled.div`
 
 /**
  * 숙소 등록 [7단계: 숙소 사진 등록]
+ * @returns Component to register photo
  */
 export default function RegisterRoomPhoto() {
-  const photos = useSelector((state) => state.registerRoom.photos);
-
   const dispatch = useDispatch();
+  const photos = useSelector((state) => state.registerRoom.photos);
 
   /**
    * 이미지 업로드 하기
@@ -97,15 +97,15 @@ export default function RegisterRoomPhoto() {
       <h2>숙소 사진 올리기</h2>
       <h3>7단계</h3>
       <p className="register-room-step-info">
-        게스트가 사진을 보고 숙소의 느낌을 생생히 떠올려볼 수 있도록 해주세요.
-        우선 사진 1장을 업로드하고 숙소를 등록한 후에 추가할 수 있습니다.
+        게스트가 사진을 보고 숙소의 느낌을 생생히 떠올려볼 수 있도록 해주세요. 우선 사진 1장을
+        업로드하고 숙소를 등록한 후에 추가할 수 있습니다.
       </p>
 
       {isEmpty(photos) && (
         <div className="register-room-upload-photo-wrapper">
           <>
             <input type="file" accept="image/*" onChange={uploadImage} />
-            <Button icon={<UploadIcon />} color="bittersweet" width="167px">
+            <Button icon={<UploadIcon />} color="bittersweet" width="167px" styleType="register">
               사진 업로드
             </Button>
           </>
