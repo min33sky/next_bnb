@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { registerRoomActions } from '../../../store/registerRoom';
-import palette from '../../../styles/palette';
-import Textarea from '../../Common/Textarea';
+import { registerRoomActions } from 'store/registerRoom';
+import palette from 'styles/palette';
+import Textarea from 'components/Common/Textarea';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
-  padding: 102px 30px 100px;
+  padding: 62px 30px 100px;
 
   h2 {
     font-size: 19px;
@@ -28,7 +28,7 @@ const Container = styled.div`
   }
 
   .register-room-description-wrapper {
-    width: 830px;
+    width: 430px;
     font-size: 14px;
     margin-bottom: 16px;
   }
@@ -38,9 +38,8 @@ const Container = styled.div`
  * 숙소 등록 [8단계: 숙소 설명]
  */
 export default function RegisterRoomDescription() {
-  const description = useSelector((state) => state.registerRoom.description);
-
   const dispatch = useDispatch();
+  const description = useSelector((state) => state.registerRoom.description);
 
   /**
    * 숙소 솔명 변경 시
@@ -53,8 +52,8 @@ export default function RegisterRoomDescription() {
       <h2>게스트에게 숙소에 대해 설명해주세요.</h2>
       <h3>8단계</h3>
       <p className="register-room-description-wrapper">
-        숙소의 장점, 특별한 편의 시설(예: 빠른 와이파이 또는 주차 시설)과 주변
-        지역의 매력을 소개해주세요.
+        숙소의 장점, 특별한 편의 시설(예: 빠른 와이파이 또는 주차 시설)과 주변 지역의 매력을
+        소개해주세요.
       </p>
 
       <div className="register-room-description-wrapper">
@@ -65,10 +64,7 @@ export default function RegisterRoomDescription() {
         />
       </div>
 
-      <RegisterRoomFooter
-        prevHref="/room/register/photo"
-        nextHref="/room/register/title"
-      />
+      <RegisterRoomFooter prevHref="/room/register/photo" nextHref="/room/register/title" />
     </Container>
   );
 }

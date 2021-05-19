@@ -1,9 +1,9 @@
 import React from 'react';
-import ReactAutosizeTextarea from 'react-autosize-textarea';
+import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 import palette from 'styles/palette';
 
-const StyledTextarea = styled(ReactAutosizeTextarea)`
+const StyledTextarea = styled(TextareaAutosize)`
   position: relative;
   width: 100%;
   min-height: 216px;
@@ -22,9 +22,11 @@ const StyledTextarea = styled(ReactAutosizeTextarea)`
   }
 `;
 
-const Textarea: React.FC<React.TextareaHTMLAttributes<HTMLTextAreaElement>> = ({
-  ...props
-}) => {
+/**
+ * Textarea
+ * @returns Autosize Textarea Component
+ */
+const Textarea = ({ ...props }) => {
   return <StyledTextarea {...props} />;
 };
 

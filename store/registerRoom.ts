@@ -106,9 +106,11 @@ const initialState: RegisterRoomState = {
   // 편의 시설
   amentities: [],
 
+  // ? 숙소 등록 6단계
   // 편의 공간
   conveniences: [],
 
+  // ? 숙소 등록 7단계
   // 숙소 사진
   photos: [
     'https://jerrynim-next-bnb.s3.ap-northeast-2.amazonaws.com/room_image_1_2x__5e286c64-83c9-4377-9967-240b6e1e4844.jpg',
@@ -116,6 +118,7 @@ const initialState: RegisterRoomState = {
     'https://jerrynim-next-bnb.s3.ap-northeast-2.amazonaws.com/room_image_1_2x__5e286c64-83c9-4377-9967-240b6e1e4844.jpg',
   ],
 
+  // ? 숙소 등록 8단계
   // 숙소 설명
   description: '',
 
@@ -323,12 +326,14 @@ const registerRoom = createSlice({
       return state;
     },
 
+    // ? 숙소 등록 7단계
     // 숙소 사진 변경하기
     setPhotos(state, action: PayloadAction<string[]>) {
       state.photos = action.payload;
       return state;
     },
 
+    // ? 숙소 등록 8단계
     // 숙소 설명 변경하기
     setDescription(state, action: PayloadAction<string>) {
       state.description = action.payload;
