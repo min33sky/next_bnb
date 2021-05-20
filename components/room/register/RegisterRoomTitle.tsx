@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { registerRoomActions } from '../../../store/registerRoom';
-import palette from '../../../styles/palette';
-import Input from '../../Common/Input';
+import { registerRoomActions } from 'store/registerRoom';
+import palette from 'styles/palette';
+import Input from 'components/Common/Input';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
-  padding: 102px 30px 100px;
+  padding: 62px 30px 100px;
   width: 445px;
 
   h2 {
@@ -33,8 +33,8 @@ const Container = styled.div`
  * 숙소 등록 [9단계: 숙소 제목]
  */
 export default function RegisterRoomTitle() {
-  const title = useSelector((state) => state.registerRoom.title);
   const dispatch = useDispatch();
+  const title = useSelector((state) => state.registerRoom.title);
 
   const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) =>
     dispatch(registerRoomActions.setTitle(event.target.value));
@@ -52,10 +52,7 @@ export default function RegisterRoomTitle() {
         />
       </div>
 
-      <RegisterRoomFooter
-        prevHref="/room/register/description"
-        nextHref="/room/register/price"
-      />
+      <RegisterRoomFooter prevHref="/room/register/description" nextHref="/room/register/price" />
     </Container>
   );
 }

@@ -1,15 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { makeMoneyString } from '../../../lib/utils';
-import { registerRoomActions } from '../../../store/registerRoom';
-import palette from '../../../styles/palette';
-import Input from '../../Common/Input';
+import { makeMoneyString } from 'lib/utils';
+import { registerRoomActions } from 'store/registerRoom';
+import palette from 'styles/palette';
+import Input from 'components/Common/Input';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
-  padding: 102px 30px 100px;
+  padding: 62px 30px 100px;
   width: 445px;
+
   h2 {
     font-size: 19px;
     font-weight: 800;
@@ -27,9 +28,8 @@ const Container = styled.div`
  * 숙소 등록 [10단계: 가격 설정]
  */
 export default function RegisterRoomPrice() {
-  const price = useSelector((state) => state.registerRoom.price);
-
   const dispatch = useDispatch();
+  const price = useSelector((state) => state.registerRoom.price);
 
   /**
    * 금액 변경 시
@@ -43,6 +43,7 @@ export default function RegisterRoomPrice() {
       dispatch(registerRoomActions.setPrice(0));
     }
 
+    // ,가 포함된 금액 형식을 일반 숫자 형식으로 변환
     const numberPrice = Number(input.replace(/,/g, ''));
     if (numberPrice) {
       dispatch(registerRoomActions.setPrice(numberPrice));
@@ -53,16 +54,9 @@ export default function RegisterRoomPrice() {
     <Container>
       <h2>숙소 요금 설정하기</h2>
       <h3>10단계</h3>
-      <Input
-        label="기본요금"
-        value={makeMoneyString(String(price))}
-        onChange={onChangePrice}
-      />
+      <Input label="기본요금" value={makeMoneyString(String(price))} onChange={onChangePrice} />
 
-      <RegisterRoomFooter
-        prevHref="/room/register/title"
-        nextHref="/room/register/date"
-      />
+      <RegisterRoomFooter prevHref="/room/register/title" nextHref="/room/register/date" />
     </Container>
   );
 }

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { registerRoomActions } from '../../../store/registerRoom';
-import palette from '../../../styles/palette';
-import DatePicker from '../../Common/DatePicker';
+import { registerRoomActions } from 'store/registerRoom';
+import palette from 'styles/palette';
+import DatePicker from 'components/Common/DatePicker';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const Container = styled.div`
-  padding: 102px 30px 100px;
+  padding: 62px 30px 100px;
 
   h2 {
     font-size: 19px;
@@ -20,6 +20,7 @@ const Container = styled.div`
     color: ${palette.gray_76};
     margin-bottom: 6px;
   }
+
   .register-room-date-wrapper {
     display: flex;
     align-items: center;
@@ -52,6 +53,10 @@ const Container = styled.div`
   }
 `;
 
+/**
+ * 숙소 예약 날짜 설정 (숙소 등록 11단계)
+ * @returns Component to register room date
+ */
 const RegisterRoomDate: React.FC = () => {
   const startDate = useSelector((state) => state.registerRoom.startDate);
   const endDate = useSelector((state) => state.registerRoom.endDate);
@@ -65,9 +70,7 @@ const RegisterRoomDate: React.FC = () => {
 
   //* 예약 시작 날짜 변경시
   const onChangeStartDate = (date: Date | null) => {
-    dispatch(
-      registerRoomActions.setStartDate(date ? date.toISOString() : null)
-    );
+    dispatch(registerRoomActions.setStartDate(date ? date.toISOString() : null));
   };
   //* 예약 종료 날짜 변경시
   const onChangeEndDate = (date: Date | null) => {
@@ -110,10 +113,7 @@ const RegisterRoomDate: React.FC = () => {
         </div>
       </div>
 
-      <RegisterRoomFooter
-        prevHref="/room/register/price"
-        nextHref="/room/register/checklist"
-      />
+      <RegisterRoomFooter prevHref="/room/register/price" nextHref="/room/register/checklist" />
     </Container>
   );
 };

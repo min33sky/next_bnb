@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ko from 'date-fns/locale/ko';
 import addHours from 'date-fns/addHours';
 import ReactDatePicker, { ReactDatePickerProps } from 'react-datepicker';
-import palette from '../../styles/palette';
+import palette from 'styles/palette';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const Container = styled.div`

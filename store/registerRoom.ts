@@ -111,7 +111,7 @@ const initialState: RegisterRoomState = {
   conveniences: [],
 
   // ? 숙소 등록 7단계
-  // 숙소 사진
+  // 숙소 사진 (더미데이터)
   photos: [
     'https://jerrynim-next-bnb.s3.ap-northeast-2.amazonaws.com/room_image_1_2x__5e286c64-83c9-4377-9967-240b6e1e4844.jpg',
     'https://jerrynim-next-bnb.s3.ap-northeast-2.amazonaws.com/room_image_1_2x__5e286c64-83c9-4377-9967-240b6e1e4844.jpg',
@@ -122,12 +122,15 @@ const initialState: RegisterRoomState = {
   // 숙소 설명
   description: '',
 
+  // ? 숙소 등록 9단계
   // 숙소 제목
   title: '',
 
+  // ? 숙소 등록 10단계
   // 숙소 요금
   price: 0,
 
+  // ? 숙소 등록 11단계
   // 예약 시작 날짜
   startDate: null,
 
@@ -340,18 +343,21 @@ const registerRoom = createSlice({
       return state;
     },
 
+    // ? 숙소 등록 9단계
     // 숙소 제목 변경하기
     setTitle(state, action: PayloadAction<string>) {
       state.title = action.payload;
       return state;
     },
 
+    // ? 숙소 등록 10단계
     // 숙소 요금 변경하기
     setPrice(state, action: PayloadAction<number>) {
       state.price = action.payload;
       return state;
     },
 
+    // ? 숙소 등록 11단계
     // 예약 시작 날짜 변경하기
     setStartDate(state, action: PayloadAction<string | null>) {
       state.startDate = action.payload;
