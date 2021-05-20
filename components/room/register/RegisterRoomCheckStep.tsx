@@ -1,13 +1,14 @@
+import Button from 'components/Common/Button';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
-import palette from '../../../styles/palette';
-import Button from '../../Common/Button';
+import palette from 'styles/palette';
 import CheckMarkIcon from '../../../public/static/svg/common/checkbox/checkbox_mark.svg';
 
 const Container = styled.li`
   display: inline-block;
   padding: 16px 0;
+
   a {
     display: flex;
     align-items: center;
@@ -52,12 +53,7 @@ interface IProps {
  * @param step
  * @param href
  */
-export default function RegisterRoomCheckStep({
-  disabled,
-  inProgress,
-  step,
-  href,
-}: IProps) {
+export default function RegisterRoomCheckStep({ disabled, inProgress, step, href }: IProps) {
   if (inProgress) {
     return (
       <Container>
