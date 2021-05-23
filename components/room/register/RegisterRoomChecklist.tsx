@@ -112,7 +112,7 @@ export default function RegisterRoomChecklist() {
    */
   const isPhotoActived = useMemo(() => {
     const { photos } = registerRoom;
-    if (!isConveniencesActived || !isEmpty(photos)) return false;
+    if (!isConveniencesActived || isEmpty(photos)) return false;
     return true;
   }, [isConveniencesActived, registerRoom]);
 

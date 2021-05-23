@@ -1,14 +1,16 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { StoredRoomType } from '../../typings/room';
+
 /**
  * 숙소 리스트 데이터 불러오기
+ * @returns Room List
  */
 const getList = () => {
   const roomBuffer = readFileSync('data/rooms.json');
   const roomsString = roomBuffer.toString();
-  if (!roomsString) {
-    return [];
-  }
+  if (!roomsString) return [];
+
+  // JSON 문자열을 파싱해서 방목록 배열을 리턴한다.
   const rooms: StoredRoomType[] = JSON.parse(roomsString);
   return rooms;
 };

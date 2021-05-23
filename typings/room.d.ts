@@ -16,7 +16,9 @@ export type BedType =
   | '해먹'
   | '물침대';
 
-//* 저장 된 숙소 타입
+/**
+ * DB에 저장할 숙소 데이터 타입
+ */
 export type StoredRoomType = {
   id: number;
   largeBuildingType: string | null;
@@ -48,7 +50,7 @@ export type StoredRoomType = {
   endDate: Date;
   createdAt: Date;
   updatedAt: Date;
-  hostId: number;
+  hostId: number; // 숙소의 호스트로 api를 보낼 때 body에 userId를 보냄
 };
 
 //* 숙소 타입

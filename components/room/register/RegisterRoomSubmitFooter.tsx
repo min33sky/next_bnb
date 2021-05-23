@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import { useRouter } from 'next/dist/client/router';
-import palette from '../../../styles/palette';
+import palette from 'styles/palette';
+import Button from 'components/Common/Button';
+import { registerRoomAPI } from 'lib/api/room';
 import BackArrowIcon from '../../../public/static/svg/register/register_room_footer_back_arrow.svg';
-import Button from '../../Common/Button';
-import { registerRoomAPI } from '../../../lib/api/room';
 
 const Container = styled.footer`
   position: fixed;
@@ -33,13 +33,13 @@ const Container = styled.footer`
 `;
 
 /**
- * 최종 숙소 등록하기 푸터
+ * 최종 숙소 등록 푸터
+ * @returns Footer Component to register room
  */
 export default function RegisterRoomSubmitFooter() {
+  const router = useRouter();
   const userId = useSelector((state) => state.user.id);
   const registerRoom = useSelector((state) => state.registerRoom);
-
-  const router = useRouter();
 
   /**
    * 숙소 등록 핸들러
@@ -65,7 +65,7 @@ export default function RegisterRoomSubmitFooter() {
           뒤로
         </a>
       </Link>
-      <Button onClick={onClickRegisterRoom} color="bittersweet" width="102px">
+      <Button onClick={onClickRegisterRoom} color="bittersweet" width="102px" styleType="register">
         등록하기
       </Button>
     </Container>
