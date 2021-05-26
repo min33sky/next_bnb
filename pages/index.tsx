@@ -1,12 +1,9 @@
+import Home from 'components/Home';
+import { NextPage } from 'next';
 import React from 'react';
-import styled from 'styled-components';
 
-const Container = styled.div`
-  font-size: 21px;
-  color: gray;
-  font-style: italic;
-`;
+const StartPage: NextPage = () => {
+  return <Home />;
+};
 
-export default function StartPage() {
-  return <Container>Hello World</Container>;
-}
+export default StartPage;
