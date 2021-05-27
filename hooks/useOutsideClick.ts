@@ -8,13 +8,17 @@ export default function useClickOutside<T extends HTMLElement>() {
   const [isClickedOutside, setIsClickedOutside] = useState(false); // 로그인 유저 메뉴 버튼 클릭 여부
 
   const buttonRef = useRef<T>(null); // 메뉴 버튼 Ref
-  const menuRef = useRef<T>(null); // 메뉴 Ref
+  const contentRef = useRef<T>(null); // 메뉴 Ref
 
   const onClickOutside = (e: MouseEvent) => {
     const el = e.target;
 
-    if (buttonRef.current && menuRef.current) {
-      if (el instanceof Node && !buttonRef.current.contains(el) && !menuRef.current.contains(el)) {
+    if (buttonRef.current && contentRef.current) {
+      if (
+        el instanceof Node &&
+        !buttonRef.current.contains(el) &&
+        !contentRef.current.contains(el)
+      ) {
         setIsClickedOutside(false);
       }
     }
@@ -27,7 +31,7 @@ export default function useClickOutside<T extends HTMLElement>() {
 
   return {
     buttonRef,
-    menuRef,
+    contentRef,
     isClickedOutside,
     setIsClickedOutside,
   };

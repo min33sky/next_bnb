@@ -4,6 +4,7 @@ import { combineReducers } from 'redux';
 import auth from './auth';
 import common from './common';
 import registerRoom from './registerRoom';
+import searchRoom from './searchRoom';
 import user from './user';
 
 //* 각각의 리듀서들을 하나로 합쳐준다.
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   common: common.reducer,
   auth: auth.reducer,
   registerRoom: registerRoom.reducer,
+  searchRoomm: searchRoom.reducer,
 });
 
 /**

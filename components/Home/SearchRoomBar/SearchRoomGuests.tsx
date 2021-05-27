@@ -15,5 +15,5 @@ const Container = styled.div`
 `;
 
 export default function SearchRoomGuests() {
-  return <Container>RoomGuests</Container>;
+  return <Container>게스트와 버튼</Container>;
 }

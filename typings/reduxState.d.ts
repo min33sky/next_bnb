@@ -61,3 +61,17 @@ export type RegisterRoomState = {
   startDate: string | null;
   endDate: string | null;
 };
+
+/**
+ * 숙소 검색 Redux State
+ */
+export type SearchRoomState = {
+  location: string;
+  latitude: number;
+  longitude: number;
+  checkInDate: string | null;
+  checkOutDate: string | null;
+  adultCount: number;
+  childrenCount: number;
+  infantsCount: number;
+};

@@ -78,7 +78,7 @@ export default function HeaderUserProfile() {
 
   const {
     buttonRef,
-    menuRef,
+    contentRef,
     isClickedOutside: isUsermenuOpened,
     setIsClickedOutside: setIsUsermenuOpened,
   } = useClickOutside<HTMLButtonElement & HTMLUListElement>();
@@ -105,7 +105,7 @@ export default function HeaderUserProfile() {
       </UserProfileButton>
 
       {isUsermenuOpened && (
-        <HeaderUsermenu ref={menuRef}>
+        <HeaderUsermenu ref={contentRef}>
           <li>숙소 관리</li>
           <Link href="/room/register/building">
             <a>
