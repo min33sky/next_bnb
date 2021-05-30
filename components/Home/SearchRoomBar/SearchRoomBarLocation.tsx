@@ -77,7 +77,7 @@ const Container = styled.div`
  */
 export default function SearchRoomBarLocation() {
   const dispatch = useDispatch();
-  const location = useSelector((state) => state.searchRoomm.location);
+  const location = useSelector((state) => state.searchRoom.location);
   const [results, setResults] = useState<{ description: string; placeId: string }[]>([]);
   const searchKeyword = useDebounce(location, 150); //! debounce Hook으로 API의 과도한 호출을 막는다
 

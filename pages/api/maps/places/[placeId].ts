@@ -14,7 +14,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const { data } = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?place_id=${placeId}&language=ko&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`
       );
-      console.log('ddddaaaattttaaaa :', data);
       const { formatted_address: location } = data.results[0];
       const { lat, lng } = data.results[0].geometry.location;
       const result = {

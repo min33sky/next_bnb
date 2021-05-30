@@ -9,7 +9,7 @@ import palette from 'styles/palette';
  * @returns 버튼 색상 css 함수
  */
 const getButtonColor = (
-  color: 'dark_cyan' | 'bittersweet' | 'white' | undefined,
+  color: 'dark_cyan' | 'bittersweet' | 'white' | 'amaranth' | undefined,
   colorReverse: boolean
 ) => {
   if (colorReverse) {
@@ -40,6 +40,12 @@ const getButtonColor = (
     case 'bittersweet':
       return css`
         background-color: ${palette.bittersweet};
+        color: white;
+      `;
+
+    case 'amaranth':
+      return css`
+        background-color: ${palette.amaranth};
         color: white;
       `;
 
@@ -105,7 +111,7 @@ interface StyledButtonProps {
   width: string | undefined;
   colorReverse: boolean;
   styleType: 'normal' | 'register';
-  color?: 'dark_cyan' | 'bittersweet' | 'white';
+  color?: 'dark_cyan' | 'bittersweet' | 'white' | 'amaranth';
   size: 'small' | 'medium';
 }
 
@@ -125,7 +131,7 @@ const Container = styled.button<StyledButtonProps>`
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  color?: 'dark_cyan' | 'bittersweet' | 'white';
+  color?: 'dark_cyan' | 'bittersweet' | 'white' | 'amaranth';
   width?: string;
   colorReverse?: boolean;
   styleType?: 'normal' | 'register';

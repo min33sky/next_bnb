@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   common: common.reducer,
   auth: auth.reducer,
   registerRoom: registerRoom.reducer,
-  searchRoomm: searchRoom.reducer,
+  searchRoom: searchRoom.reducer,
 });
 
 /**
