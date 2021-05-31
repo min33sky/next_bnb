@@ -49,17 +49,19 @@ export const makeMoneyString = (input: string) => {
 export const makeQueryString = (baseUrl: string, querysObject: Object & { [key: string]: any }) => {
   const keys = Object.keys(querysObject);
   const values = Object.entries(querysObject);
+
   if (keys.length === 0) {
     return baseUrl;
   }
 
   let queryString = `${baseUrl}?`;
+
   keys.forEach((key, i) => {
     if (querysObject[key]) {
-      console.log(queryString);
       queryString += `${keys[i]}=${values[i][1]}&`;
     }
   });
+
   //* 마지막 '&' 제거하기
   return queryString.slice(0, -1);
 };

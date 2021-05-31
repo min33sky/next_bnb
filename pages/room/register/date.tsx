@@ -1,5 +1,5 @@
 import React from 'react';
-import RegisterRoomDate from 'components/room/register/RegisterRoomDate';
+import RegisterRoomDate from 'components/Room/register/RegisterRoomDate';
 
 /**
  * 숙소 날짜 설정 페이지 (숙소 등록 11단계)

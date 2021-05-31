@@ -1,4 +1,4 @@
-import RegisterRoomLocation from 'components/room/register/RegisterRoomLocation';
+import RegisterRoomLocation from 'components/Room/register/RegisterRoomLocation';
 import React from 'react';
 
 /**

@@ -1,5 +1,5 @@
 import React from 'react';
-import RegisterRoomPrice from 'components/room/register/RegisterRoomPrice';
+import RegisterRoomPrice from 'components/Room/register/RegisterRoomPrice';
 
 /**
  * 숙소 가격 설정 (숙소 등록 10단계)

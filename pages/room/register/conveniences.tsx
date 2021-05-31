@@ -1,4 +1,4 @@
-import RegisterRoomConveniences from 'components/room/register/RegisterRoomConveniences';
+import RegisterRoomConveniences from 'components/Room/register/RegisterRoomConveniences';
 import React from 'react';
 
 /**

@@ -1,5 +1,5 @@
 import React from 'react';
-import RegisterRoomDescription from 'components/room/register/RegisterRoomDescription';
+import RegisterRoomDescription from 'components/Room/register/RegisterRoomDescription';
 
 /**
  * 숙소 설명 페이지 (숙소 등록 8단계)

@@ -3,10 +3,46 @@ import { isEmpty } from 'lodash';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { StoredRoomType } from 'typings/room';
 
-/**
- * 숙소 등록 API
- */
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  /**
+   * 숙소 리스트 불러오기 API
+   */
+  if (req.method === 'GET') {
+    const {
+      checkInDate,
+      checkOutDate,
+      adultCount,
+      childrenCount,
+      infantsCount,
+      latitude,
+      longitude,
+      limit,
+      page = '1',
+    } = req.query;
+
+    try {
+      const rooms = Data.room.getList();
+
+      //* 개수 자르기
+      const limitedRooms = rooms.splice(0 + (Number(page) - 1) * Number(limit), Number(limit));
+
+      //* host 정보 넣기
+      const roomsWithHost = await Promise.all(
+        limitedRooms.map(async (room) => {
+          const host = Data.user.find({ id: room.hostId });
+          return { ...room, host };
+        })
+      );
+
+      return res.status(200).send(roomsWithHost);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  /**
+   * 숙소 등록 API
+   */
   if (req.method === 'POST') {
     try {
       const {

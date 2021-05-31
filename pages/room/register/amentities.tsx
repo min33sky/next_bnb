@@ -1,4 +1,4 @@
-import RegisterRoomAmentities from 'components/room/register/RegisterRoomAmentities';
+import RegisterRoomAmentities from 'components/Room/register/RegisterRoomAmentities';
 import React from 'react';
 
 /**

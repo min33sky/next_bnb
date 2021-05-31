@@ -12,6 +12,7 @@ import SearchIcon from '../../../public/static/svg/search/white_search.svg';
 export default function SearchRoomButton() {
   const searchRoom = useSelector((state) => state.searchRoom);
 
+  // 숙소 검색 정보 데이터를 querystring으로 변환
   const roomListHref = makeQueryString('/room', searchRoom);
 
   return (

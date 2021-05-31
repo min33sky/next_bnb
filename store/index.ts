@@ -6,6 +6,7 @@ import common from './common';
 import registerRoom from './registerRoom';
 import searchRoom from './searchRoom';
 import user from './user';
+import room from './room';
 
 //* 각각의 리듀서들을 하나로 합쳐준다.
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   auth: auth.reducer,
   registerRoom: registerRoom.reducer,
   searchRoom: searchRoom.reducer,
+  room: room.reducer,
 });
 
 /**

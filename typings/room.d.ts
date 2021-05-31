@@ -53,7 +53,9 @@ export type StoredRoomType = {
   hostId: number; // 숙소의 호스트로 api를 보낼 때 body에 userId를 보냄
 };
 
-//* 숙소 타입
+/**
+ * 숙소 타입
+ */
 export type RoomType = {
   id: number;
   largeBuildingType: string | null;

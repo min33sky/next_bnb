@@ -1,5 +1,5 @@
 import React from 'react';
-import RegisterRoomBedrooms from 'components/room/register/RegisterRoomBedrooms';
+import RegisterRoomBedrooms from 'components/Room/register/RegisterRoomBedrooms';
 
 /**
  * 침대 등록 페이지 (숙소 등록 2단계)

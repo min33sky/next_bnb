@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
  * ? 서버에서는 window와 document를 사용할 수 없기 때문
  */
 const RegisterRoomGeometry = dynamic(
-  import('../../../components/room/register/RegisterRoomGeometry'),
+  import('../../../components/Room/register/RegisterRoomGeometry'),
   { ssr: false }
 );
 
