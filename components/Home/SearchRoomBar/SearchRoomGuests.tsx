@@ -1,7 +1,8 @@
 import Counter from 'components/Common/Counter';
 import useClickOutside from 'hooks/useOutsideClick';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchRoomActions } from 'store/searchRoom';
 import styled from 'styled-components';
 import palette from 'styles/palette';
 import SearchRoomButton from './SearchRoomButton';
@@ -76,6 +77,7 @@ const Container = styled.div`
  * @returns
  */
 export default function SearchRoomGuests() {
+  const dispatch = useDispatch();
   const adultCount = useSelector((state) => state.searchRoom.adultCount);
   const childrenCount = useSelector((state) => state.searchRoom.childrenCount);
   const infantsCount = useSelector((state) => state.searchRoom.infantsCount);
@@ -83,8 +85,21 @@ export default function SearchRoomGuests() {
   const { buttonRef, contentRef, isClickedOutside, setIsClickedOutside } =
     useClickOutside<HTMLDivElement>();
 
+  // 팝업창 ON
   const onClickSearch = () => {
     setIsClickedOutside(true);
+  };
+
+  const setAdultCountDispatch = (value: number) => {
+    dispatch(searchRoomActions.setAdultCount(value));
+  };
+
+  const setChildrenCountDispatch = (value: number) => {
+    dispatch(searchRoomActions.setChildrenCount(value));
+  };
+
+  const setInfantsCountDispatch = (value: number) => {
+    dispatch(searchRoomActions.setInfantsCount(value));
   };
 
   return (
@@ -107,7 +122,7 @@ export default function SearchRoomGuests() {
               description="만 13세 이상"
               minValue={1}
               value={adultCount}
-              onChange={() => {}}
+              onChange={(count) => setAdultCountDispatch(count)}
             />
           </div>
           <div className="search-room-bar-guests-counter-wrapper">
@@ -116,7 +131,7 @@ export default function SearchRoomGuests() {
               description="2-12세"
               minValue={1}
               value={childrenCount}
-              onChange={() => {}}
+              onChange={(count) => setChildrenCountDispatch(count)}
             />
           </div>
           <div className="search-room-bar-guests-counter-wrapper">
@@ -125,7 +140,7 @@ export default function SearchRoomGuests() {
               description="2세 미만"
               minValue={1}
               value={infantsCount}
-              onChange={() => {}}
+              onChange={(count) => setInfantsCountDispatch(count)}
             />
           </div>
         </div>

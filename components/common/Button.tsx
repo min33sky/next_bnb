@@ -121,6 +121,8 @@ const Container = styled.button<StyledButtonProps>`
   ${(props) => getButtonColor(props.color, props.colorReverse)}
   ${(props) => getButtonSize(props.size)}
 
+  width: ${(props) => props.width};
+
   /* 버튼 아이콘 */
   svg {
     margin-right: 12px;
