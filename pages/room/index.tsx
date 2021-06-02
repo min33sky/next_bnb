@@ -1,6 +1,7 @@
 import RoomMain from 'components/Room/Main/RoomMain';
 import { getRoomListAPI } from 'lib/api/room';
 import { NextPage } from 'next';
+import { roomActions } from 'store/room';
 
 /**
  * /room
@@ -39,7 +40,7 @@ index.getInitialProps = async ({ store, query }) => {
       // ? 한글은 encode 처리해라
       location: query.location ? encodeURI(query.location as string) : undefined,
     });
-    // TODO: roomAction dispatch
+    store.dispatch(roomActions.setRooms(data));
   } catch (error) {
     console.error(error);
   }
